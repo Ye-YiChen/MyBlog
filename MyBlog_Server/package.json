@@ -1,0 +1,12 @@
+{
+  "name": "MyBlog",
+  "version": "1.0.0",
+  "description": "server with nodejs",
+  "main": "index.js",
+  "author": "YeYiChen",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}

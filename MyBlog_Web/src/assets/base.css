@@ -1,0 +1,14 @@
+*{
+    font-size: 14px;
+}
+html {
+    background-color: #f1f2f9;
+    min-height: 100vh;
+}
+
+ul{
+    list-style: none;
+}
+-webkit-scrollbar {
+    display: none
+}
