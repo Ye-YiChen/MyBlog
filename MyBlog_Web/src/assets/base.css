@@ -12,3 +12,7 @@ ul{
 -webkit-scrollbar {
     display: none
 }
+#app{
+    position: relative;
+    height: 100%;
+}
