@@ -22,11 +22,13 @@
     cursor: pointer;
     transition: .1s;
     overflow: hidden;
-    &:hover{
+
+    &:hover {
+        box-sizing: border-box;
         background-color: rgb(var(--arcoblue-4));
         color: #fff;
         border-top: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+        // border-bottom: 1px solid #fff;
     }
 }
 </style>

@@ -18,33 +18,33 @@
     <ul class="icon-box">
       <li>
         <a-tooltip content="QQ" position="bottom">
-          <a-button type="text" >
+          <a-link type="text" :href="link.QQ" class="href-link" target="_blank">
             <template #icon>
               <icon-qq size="16" />
             </template>
-          </a-button>
+          </a-link>
 
         </a-tooltip>
 
       </li>
       <li>
         <a-tooltip content="WeChat" position="bottom">
-          <a-button type="text">
+          <a-link type="text"  :href="link.WeChat" class="href-link" target="_blank">
             <template #icon>
               <icon-wechat size="16" />
             </template>
-          </a-button>
+          </a-link>
 
         </a-tooltip>
 
       </li>
       <li>
         <a-tooltip content="GitHub" position="bottom">
-          <a-button type="text">
+          <a-link type="text" :href="link.GitHub" class="href-link" target="_blank">
             <template #icon>
               <icon-github size="16" />
             </template>
-          </a-button>
+          </a-link>
 
         </a-tooltip>
 
@@ -55,7 +55,11 @@
 </template>
 
 <script setup lang='ts'>
-
+const link = {
+  QQ: '#',
+  WeChat: '#',
+  GitHub: "https://github.com/Ye-YiChen/MyBlog"
+}
 </script>
 
 <style scoped lang='less'>
@@ -63,7 +67,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 25px 0;
+  padding: 25px 0 0;
 }
 
 .icon-box {
@@ -76,8 +80,12 @@
     margin: 0 5px;
   }
 
+  .href-link {
+    color: #666;
+  }
+
   :deep(.arco-btn-text) {
-    color: #666 ;
+    color: #666;
   }
 }
 </style>

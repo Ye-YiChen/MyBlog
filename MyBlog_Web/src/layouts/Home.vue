@@ -1,7 +1,7 @@
 <template>
     <a-layout class="layout-home">
         <a-layout-sider name="left-sider" class="left-sider">
-            <!-- 头像 -->
+            <!-- 个人信息相关 -->
             <AvatarBox />
             <div class="button-box">
                 <NavButton @click="clickTest">首页</NavButton>
@@ -15,16 +15,30 @@
             content
         </a-layout-content>
 
-        <a-layout-sider name="right-sider" class="right-sider">Sider-right</a-layout-sider>
+        <a-layout-sider name="right-sider" class="right-sider">
+            <CategoryBox :link-list="linkList"/>
+            <CategoryBox :link-list="linkList"/>
+        </a-layout-sider>
     </a-layout>
 </template>
 
 <script setup lang='ts'>
 import AvatarBox from '@/components/LeftSider/AvatarBox/AvatarBox.vue'
 import NavButton from '@/components/LeftSider/NavButton/NavButton.vue'
-function clickTest(){
+import CategoryBox from '@/components/RightSider/CategoryBox/CategoryBox.vue';
+function clickTest() {
     console.log(1)
 }
+
+const linkList = [{
+    text: '这是一个链接',
+    link: '#',
+    disabled: false,
+}, {
+    text: '这是一个链接2',
+    link: '#',
+    disabled: true,
+}]
 
 </script>
 
@@ -40,10 +54,10 @@ function clickTest(){
 }
 
 .left-sider {
-    box-sizing: content-box;
+    box-sizing: border-box;
     position: sticky;
     top: 100px;
-    width: 200px;
+    // width: 150px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 15px rgb(0 0 0 / 2%);
@@ -59,6 +73,7 @@ function clickTest(){
     }
 
     .button-box {
+        box-sizing: border-box;
         border-radius: 0 0 10px 10px;
         overflow: hidden;
     }
@@ -78,7 +93,7 @@ function clickTest(){
     position: sticky;
     top: 5px;
     width: 250px;
-    background-color: #fff;
+    background-color: transparent;
     border-radius: 10px;
     box-shadow: 0 2px 15px rgb(0 0 0 / 2%);
     height: 100%;
