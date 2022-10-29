@@ -3,7 +3,7 @@
         <div class="img-container">
             <div v-for="(picture,index) in pictures" :key="index" class="info-box">
                 <img :src="picture.src" class="img-item  round-box" />
-                <h5 class="img-title">{{picture.title}}</h5>
+                <h5 class="img-title big-text">{{picture.title}}</h5>
             </div>
         </div>
     </div>
@@ -16,8 +16,7 @@ interface Picture {
     link: string;
     title: string;
 }
-const props = defineProps<{ pictures: Picture[] }>()
-const { pictures } = toRefs(props)
+const { pictures } = defineProps<{ pictures: Picture[] }>()
 </script>
 
 <style scoped lang='less'>
@@ -30,11 +29,12 @@ const { pictures } = toRefs(props)
         display: flex;
         flex-direction: column;
         width: 45%;
-        object-fit: contain;
-        margin-bottom: 20px;
+        object-fit: cover;
+        margin-bottom: 30px;
 
         .img-item {
-            height: 120px;
+            min-height: 15vh;
+            max-height: 25vh;
 
         }
 

@@ -5,19 +5,12 @@
             <a-divider orientation="center" class="mid-divider" margin="50px">最新文章</a-divider>
             <ArticleBox :article="article_1" />
             <ArticleBox :article="article_2" />
-            <ArticleBox :article="article_3" :divider='false' />
+            <ArticleBox :article="article_3" :divider="false" />
             <a-divider orientation="center" class="mid-divider" margin="50px">旅行日记</a-divider>
-            <a-carousel :auto-play="true" :style="{
-              width: '100%',
-              height: '200px',
-              
-            }" show-arrow="never" direction="vertical" animationName="fade">
+            <a-carousel :auto-play="true" class="carousel-chart round-box" show-arrow="never" direction="vertical"
+                animationName="fade">
                 <a-carousel-item v-for="image in images">
-                    <img :src="image" :style="{
-                      width: '100%',
-                      height:'100%',
-                      objectFit:'fill'
-                    }" />
+                    <img :src="image" class="carousel-img" />
                 </a-carousel-item>
             </a-carousel>
             <a-divider orientation="center" class="mid-divider" margin="50px">推荐板块</a-divider>
@@ -86,6 +79,18 @@ const images = ['/big-pic.jpg', '/big-pic.jpg', '/big-pic.jpg', '/big-pic.jpg']
 <style scoped lang='less'>
 .home {
     margin: 0 auto;
+}
+
+.carousel-chart {
+    margin: 0 20px;
+    min-width: 80%;
+    height: 300px;
+
+    .carousel-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover
+    }
 }
 
 .mid-divider {

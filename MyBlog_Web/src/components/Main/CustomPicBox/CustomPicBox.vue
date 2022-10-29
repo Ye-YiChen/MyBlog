@@ -1,6 +1,6 @@
 <template>
     <div class="custom-pic-box">
-        <a-image :src="picture.src" fit="fill" class="img-box round-box " />
+        <img :src="picture.src" fit="fill" class="img-box round-box " />
         <a-typography class="text-box">
             <a-typography-title :style="{
                 margin:0,
@@ -24,8 +24,7 @@ import { toRefs } from 'vue'
 // 定义图片格式类型
 interface Picture { src: string, title: string, description?: string }
 // type PicType = { src: string, title: string, description?: string }
-const props = defineProps<{ picture: Picture }>()
-const { picture } = toRefs(props)
+const { picture } = defineProps<{ picture: Picture }>()
 // console.log(picture.value)
 
 </script>
@@ -33,13 +32,14 @@ const { picture } = toRefs(props)
 <style scoped lang='less'>
 .custom-pic-box {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     // height: 20vh;
     overflow: auto;
 
 
     .img-box {
-        flex: 1;
+        width: 30%;
+        margin: 0 20px;
     }
 
     :deep(.arco-image-footer-caption-description) {

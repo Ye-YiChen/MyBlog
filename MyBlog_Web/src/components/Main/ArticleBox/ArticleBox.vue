@@ -21,7 +21,7 @@
               justifyContent: 'space-between'
             }">
               <!-- <img v-for="(picture,index) in article.pictures" :key="index" :src="picture.src" class="img-item" /> -->
-              <a-image v-for="(picture,index) in  article.pictures" :key="index" :src="picture.src" height="140" />
+              <a-image v-for="(picture,index) in  article.pictures" :key="index" :src="picture.src" height="140" class="round-box" />
             </a-space>
           </a-image-preview-group>
 
@@ -49,14 +49,14 @@
             justifyContent: 'space-around'
           }">
             <!-- <img v-for="(picture,index) in article.pictures" :key="index" :src="picture.src" class="img-item" /> -->
-            <img v-for="(picture,index) in  article.pictures" :key="index" :src="picture.src" class="img-item" />
+            <img v-for="(picture,index) in  article.pictures" :key="index" :src="picture.src" class="img-item round-box" />
           </a-space>
         </a-image-preview-group>
 
       </div>
       <footer class="bottom-text small-text">{{article.category}} {{article.date.toLocaleDateString()}}</footer>
     </div>
-    <a-divider v-if="divider" />
+    <a-divider v-if="!!divider" />
 
   </div>
 </template>
@@ -65,16 +65,14 @@
 /* 当图片仅有一个时，图片显示在右边且文字显示4行 
 /* 否则图片最多展示三个，显示标题、文字、图片
 */
-import { toRefs } from 'vue'
 interface Article {
-  title: string,
+  title: string, // 标题
   description: string,
   pictures: { src: string, }[]
   category: string,
   date: Date
 }
-const props = defineProps<{ article: Article, divider?: boolean }>()
-const { article, divider } = toRefs(props);
+const { article, divider = true } = defineProps<{ article: Article, divider?: boolean }>()
 </script>
 
 <style scoped lang='less'>

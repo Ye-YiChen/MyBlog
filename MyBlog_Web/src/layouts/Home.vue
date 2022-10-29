@@ -4,10 +4,17 @@
             <a-layout-sider name="left-sider" class="left-sider">
                 <!-- 个人信息相关 -->
                 <AvatarBox />
-                <div class="button-box">
-                    <NavButton @click="clickTest">首页</NavButton>
-                    <NavButton>日记页面</NavButton>
-                </div>
+                <ul class="button-box">
+                    <li>
+                        <NavButton @click="clickTest">首页</NavButton>
+                    </li>
+                    <li>
+                        <NavButton @click="clickTest">所有文章</NavButton>
+                    </li>
+                    <li>
+                        <NavButton @click="clickTest">请喝杯咖啡</NavButton>
+                    </li>
+                </ul>
                 <slot name="left-sider" />
 
                 <a-link href="#" class="page-tips">Made By YeYiChen</a-link>
@@ -18,13 +25,11 @@
             </a-layout-content>
 
             <a-layout-sider name="right-sider" class="right-sider">
-                <CategoryBox :link-list="linkList" />
-                <CategoryBox :link-list="linkList" />
+                <CategoryBox :link-list="linkList" title="近期文章" />
+                <CategoryBox :link-list="linkList" title="分类列表" />
                 <slot name="right-sider" />
 
             </a-layout-sider>
-
-
         </a-layout>
         <a-back-top :visible-height='500' />
 
@@ -55,7 +60,7 @@ const linkList = [{
 .layout-home {
     position: relative;
     margin: 100px auto 50px;
-    width: 80vw;
+    max-width: 70vw;
 
     :deep(.arco-layout-sider-children) {
         overflow: hidden !important;
@@ -83,6 +88,7 @@ const linkList = [{
 
     .button-box {
         box-sizing: border-box;
+        margin-top: 20px;
         border-radius: 0 0 10px 10px;
         overflow: hidden;
     }
@@ -108,5 +114,4 @@ const linkList = [{
     height: 100%;
 
 }
-
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="category-box">
-        <h4 class="box-title big-text">近期文章
+        <h4 class="box-title big-text">{{title}}
             <slot name="title" />
         </h4>
         <a-space direction="vertical" class="choice">
@@ -11,12 +11,11 @@
 </template>
 
 <script setup lang='ts'>
-import { toRefs } from 'vue'
 interface Props {
-    linkList: Array<{ text: string, link: string, disabled?: boolean }>
+    linkList: Array<{ text: string, link: string, disabled?: boolean }>,
+    title: string,
 }
-const props = defineProps<Props>()
-const { linkList } = toRefs(props) 
+const { linkList, title } = defineProps<Props>()
 </script>
 
 <style scoped lang='less'>
