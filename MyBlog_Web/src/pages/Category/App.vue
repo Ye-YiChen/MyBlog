@@ -2,7 +2,11 @@
     <div class="category">
         <Home>
             <h3 class="category-title huge-text">分类标题</h3>
-            <ArticleBox :article=article />
+            <a-divider/>
+            <ArticleBox :article=article  />
+            <ArticleBox :article=article  />
+            <ArticleBox :article=article  />
+            <ArticleBox :article=article :divider="false" />
         </Home>
 
     </div>
