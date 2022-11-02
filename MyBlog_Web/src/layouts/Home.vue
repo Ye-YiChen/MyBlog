@@ -60,7 +60,7 @@ const linkList = [{
 .layout-home {
     position: relative;
     margin: 100px auto 50px;
-    max-width: 70vw;
+    max-width: 80vw;
 
     :deep(.arco-layout-sider-children) {
         overflow: hidden !important;

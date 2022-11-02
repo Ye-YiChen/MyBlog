@@ -65,21 +65,22 @@
 /* 当图片仅有一个时，图片显示在右边且文字显示4行 
 /* 否则图片最多展示三个，显示标题、文字、图片
 */
-interface Article {
+interface ArticleShortCuts {
   title: string, // 标题
   description: string,
   pictures: { src: string, }[]
   category: string,
   date: Date
 }
-const { article, divider = true } = defineProps<{ article: Article, divider?: boolean }>()
+const { article, divider = true } = defineProps<{ article: ArticleShortCuts, divider?: boolean }>()
 </script>
 
 <style scoped lang='less'>
 .bottom-text {
   color: #888;
   letter-spacing: 2px;
-  margin: 15px 0;
+  margin: 20px 0 0;
+
 }
 
 .main-box {
