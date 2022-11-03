@@ -1,20 +1,23 @@
 <template>
     <div class="home">
         <Home>
-            <CustomPicBox :picture="picture" />
-            <a-divider orientation="center" class="mid-divider" margin="50px">最新文章</a-divider>
-            <ArticleBox :article="article_1" />
-            <ArticleBox :article="article_2" />
-            <ArticleBox :article="article_3" :divider="false" />
-            <a-divider orientation="center" class="mid-divider" margin="50px">旅行日记</a-divider>
-            <a-carousel :auto-play="true" class="carousel-chart round-box" show-arrow="never" direction="vertical"
-                animationName="fade">
-                <a-carousel-item v-for="image in images">
-                    <img :src="image" class="carousel-img" />
-                </a-carousel-item>
-            </a-carousel>
-            <a-divider orientation="center" class="mid-divider" margin="50px">推荐板块</a-divider>
-            <RecommendBox :pictures="pictures" />
+            <ContentBox>
+                <CustomPicBox :picture="picture" />
+                <a-divider orientation="center" class="mid-divider" margin="50px">最新文章</a-divider>
+                <ArticleBox :article="article_1" />
+                <ArticleBox :article="article_2" />
+                <ArticleBox :article="article_3" :divider="false" />
+                <a-divider orientation="center" class="mid-divider" margin="50px">旅行日记</a-divider>
+                <a-carousel :auto-play="true" class="carousel-chart round-box" show-arrow="never" direction="vertical"
+                    animationName="fade">
+                    <a-carousel-item v-for="image in images">
+                        <img :src="image" class="carousel-img" />
+                    </a-carousel-item>
+                </a-carousel>
+                <a-divider orientation="center" class="mid-divider" margin="50px">推荐板块</a-divider>
+                <RecommendBox :pictures="pictures" />
+            </ContentBox>
+
         </Home>
     </div>
 </template>
@@ -24,6 +27,7 @@ import Home from '@/layouts/Home.vue'
 import CustomPicBox from '../../components/Main/CustomPicBox/CustomPicBox.vue'
 import ArticleBox from '../../components/Main/ArticleBox/ArticleBox.vue'
 import RecommendBox from '../../components/Main/RecommendBox/RecommendBox.vue'
+import ContentBox from '@/components/Main/ContentBox/ContentBox.vue';
 
 const picture = {
     src: '/big-pic.jpg',

@@ -1,18 +1,21 @@
 <template>
     <div class="category">
         <Home>
-            <h3 class="category-title huge-text">分类标题</h3>
-            <a-divider/>
-            <ArticleBox :article=article  />
-            <ArticleBox :article=article  />
-            <ArticleBox :article=article  />
-            <ArticleBox :article=article :divider="false" />
+            <ContentBox>
+                <a-divider />
+                <ArticleBox :article=article />
+                <ArticleBox :article=article />
+                <ArticleBox :article=article />
+                <ArticleBox :article=article :divider="false" />
+            </ContentBox>
+            
         </Home>
 
     </div>
 </template> 
 
 <script setup lang='ts'>
+import ContentBox from "@/components/Main/ContentBox/ContentBox.vue";
 import ArticleBox from "../../components/Main/ArticleBox/ArticleBox.vue";
 import Home from "../../layouts/Home.vue";
 
@@ -29,8 +32,4 @@ const article = {
 
 <style scoped lang='less'>
 
-.category-title{
-    position: absolute;
-    top: 0;
-}
 </style>
