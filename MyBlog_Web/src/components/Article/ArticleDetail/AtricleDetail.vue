@@ -3,30 +3,33 @@
     <a-typography-title class="title">
       这是一个大标题
     </a-typography-title>
-    <a-space size="mini" class="short-info">
+    <a-space class="short-info">
+      <template #split>
+        <a-divider direction="vertical" />
+      </template>
       <a-link class="link">
         <icon-user class="" />
         <span class="short-text">YeYiChen</span>
       </a-link>
-      <a-divider direction="vertical" />
+      <!-- <a-divider direction="vertical" /> -->
 
       <a-link class="link">
         <icon-menu />
         <span class="short-text">随心笔记</span>
       </a-link>
-      <a-divider direction="vertical" />
+      <!-- <a-divider direction="vertical" /> -->
 
       <span class="link">
         <icon-calendar />
         <span class="short-text">2022-01-01</span>
       </span>
-      <a-divider direction="vertical" />
+      <!-- <a-divider direction="vertical" /> -->
 
       <span class="link">
         <icon-eye />
         <span class="short-text">2022-01-01</span>
       </span>
-      <a-divider direction="vertical" />
+      <!-- <a-divider direction="vertical" /> -->
 
       <span class="link">
         <icon-heart-fill />
@@ -100,6 +103,8 @@ const article = ref(`# hello
 
 
 .short-info {
+  justify-content: space-between;
+  width: 100%;
   .link {
     color: #888;
   }

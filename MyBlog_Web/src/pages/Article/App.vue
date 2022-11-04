@@ -7,13 +7,13 @@
       <ContentBox title="相关阅读">
         <a-carousel :autoPlay="true" animation-name="card" show-arrow="never" indicator-position="outer" :style="{
           width: '100%',
-          height: '240px',
+          height: '25vh',
         }">
           <a-carousel-item v-for="image in images" :style="{ width: '60%', }" class="img-mask">
             <img :src="image" :style="{
-              width: '100%',
+              height:'100%'
             }" class="img-mask" />
-            <h4 class="img-text">{{ image }}</h4>
+            <h4 class="img-text text-center">{{ image }}</h4>
           </a-carousel-item>
         </a-carousel>
       </ContentBox>
@@ -26,7 +26,7 @@
           product or process." datetime="1 hour">
           <template #actions>
             <a-button class="action-btn" type="text">
-              <IconMessage :style="{marginRight:'5px'}" /> 
+              <IconMessage :style="{marginRight:'5px'}" />
               <span>Reply</span>
             </a-button>
           </template>
@@ -41,7 +41,7 @@
           product or process." datetime="1 hour">
           <template #actions>
             <a-button class="action-btn" type="text">
-              <IconMessage :style="{marginRight:'5px'}" /> 
+              <IconMessage :style="{marginRight:'5px'}" />
               <span>Reply</span>
             </a-button>
           </template>
@@ -56,7 +56,7 @@
           product or process." datetime="1 hour">
           <template #actions>
             <a-button class="action-btn" type="text">
-              <IconMessage :style="{marginRight:'5px'}" /> 
+              <IconMessage :style="{marginRight:'5px'}" />
               <span>Reply</span>
             </a-button>
           </template>
@@ -98,20 +98,20 @@ const images = [
   position: absolute;
   bottom: 0;
   margin: 0;
-
+  object-fit: cover;
 
   .img-text {
     position: absolute;
     bottom: 0;
     color: #eee;
-    text-align: center;
     margin: 0;
     padding: 5px 10px;
     background: linear-gradient(rgba(0, 0, 0, 0.05), rgba(41, 41, 41, 0.8));
 
   }
 }
-.action-btn{
+
+.action-btn {
   color: #4e5969;
 }
 </style>
