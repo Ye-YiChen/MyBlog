@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import home from './home'
 import category from './category'
 import article from './article'
 const router = createRouter({
@@ -7,9 +8,10 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('page/Home/App.vue')
+      name: 'Redirect',
+      redirect: '/home/1'
     },
+    ...home,
     ...category,
     ...article
   ]
