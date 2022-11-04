@@ -103,10 +103,11 @@ const article = ref(`# hello
 
 
 .short-info {
-  justify-content: space-between;
+  // justify-content: space-between;
   width: 100%;
   .link {
     color: #888;
+    margin-right: .5vw;
   }
 
   .short-text {
