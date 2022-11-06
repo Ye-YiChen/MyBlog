@@ -38,7 +38,7 @@ function SuccessResult(data: any, message?: string, code?: number): Result {
     message = message || 'request success';
 
     return {
-        code: 0,
+        code,
         message,
         data
     }
