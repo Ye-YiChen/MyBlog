@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
-import { queryArticleCategoriesByUserId,queryArticleCategoryInfo } from "src/db/articleCategory";
+import { queryArticleCategoriesByUserId, queryArticleCategoryInfo } from "src/db/articleCategory";
 import { SuccessResult, ErrorResult } from "src/model/Result";
 
 
 async function getArticleCategoriesByUserId(req: Request, res: Response) {
     const { user_id } = req.params;
+    const { page, pageSize } = req.query;
     try {
-        const articleCategories = await queryArticleCategoriesByUserId(parseInt(user_id));
+        const articleCategories = await queryArticleCategoriesByUserId(parseInt(user_id), parseInt(page as string), parseInt(pageSize as string));
         res.json(SuccessResult(articleCategories));
         return;
     } catch {
@@ -18,8 +19,9 @@ async function getArticleCategoriesByUserId(req: Request, res: Response) {
 
 async function getArticleCategoryInfo(req: Request, res: Response) {
     const { article_category_id } = req.params;
+    const { page, pageSize } = req.query;
     try {
-        const [articleCategory] = await queryArticleCategoryInfo(parseInt(article_category_id));
+        const [articleCategory] = await queryArticleCategoryInfo(parseInt(article_category_id), parseInt(page as string), parseInt(pageSize as string));
         res.json(SuccessResult(articleCategory));
         return;
     } catch {

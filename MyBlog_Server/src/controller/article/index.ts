@@ -10,8 +10,9 @@ import { SuccessResult, ErrorResult } from "src/model/Result";
  */
 async function getArticlesByUserId(req: Request, res: Response) {
     const { user_id } = req.params;
+    const { page, pageSize } = req.query;
     try {
-        const articles = await queryArticlesByUserId(parseInt(user_id));
+        const articles = await queryArticlesByUserId(parseInt(user_id), parseInt(page as string), parseInt(pageSize as string));
         res.json(SuccessResult(articles));
         return;
     } catch {
@@ -28,8 +29,9 @@ async function getArticlesByUserId(req: Request, res: Response) {
  */
 async function getArticlesByCategoryId(req: Request, res: Response) {
     const { article_category_id } = req.params;
+    const { page, pageSize } = req.query;
     try {
-        const articles = await queryArticlesByCategoryId(parseInt(article_category_id));
+        const articles = await queryArticlesByCategoryId(parseInt(article_category_id), parseInt(page as string), parseInt(pageSize as string));
         res.json(SuccessResult(articles));
         return;
     } catch {
