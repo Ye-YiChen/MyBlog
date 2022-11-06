@@ -1,14 +1,13 @@
 <template>
     <div class="category">
         <Home>
-            <ContentBox>
-                <a-divider />
+            <ContentBox title="分类列表">
                 <ArticleBox :article=article />
                 <ArticleBox :article=article />
                 <ArticleBox :article=article />
                 <ArticleBox :article=article :divider="false" />
+                <a-pagination :total="10000"  size="large" class="pagination"/>
             </ContentBox>
-            
         </Home>
 
     </div>
@@ -31,5 +30,8 @@ const article = {
 </script>
 
 <style scoped lang='less'>
-
+.pagination{
+    margin: 50px auto 0;
+    justify-content: center;
+}
 </style>

@@ -11,66 +11,70 @@
         }">
           <a-carousel-item v-for="image in images" :style="{ width: '60%', }" class="img-mask">
             <img :src="image" :style="{
-              height:'100%'
+              height: '100%'
             }" class="img-mask" />
             <h4 class="img-text text-center">{{ image }}</h4>
           </a-carousel-item>
         </a-carousel>
       </ContentBox>
-      <ContentBox title="评论">
-        <a-comment align="right" author="Balzac"
-          avatar="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
-          content="A design is a plan or specification for the construction of an object
-          or system or for the implementation of an activity or process, or the
-          result of that plan or specification in the form of a prototype,
-          product or process." datetime="1 hour">
-          <template #actions>
-            <a-button class="action-btn" type="text">
-              <IconMessage :style="{marginRight:'5px'}" />
-              <span>Reply</span>
-            </a-button>
-          </template>
-
-
-        </a-comment>
-        <a-comment align="right" author="Balzac"
-          avatar="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
-          content="A design is a plan or specification for the construction of an object
-          or system or for the implementation of an activity or process, or the
-          result of that plan or specification in the form of a prototype,
-          product or process." datetime="1 hour">
-          <template #actions>
-            <a-button class="action-btn" type="text">
-              <IconMessage :style="{marginRight:'5px'}" />
-              <span>Reply</span>
-            </a-button>
-          </template>
-
-
-        </a-comment>
-        <a-comment align="right" author="Balzac"
-          avatar="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
-          content="A design is a plan or specification for the construction of an object
-          or system or for the implementation of an activity or process, or the
-          result of that plan or specification in the form of a prototype,
-          product or process." datetime="1 hour">
-          <template #actions>
-            <a-button class="action-btn" type="text">
-              <IconMessage :style="{marginRight:'5px'}" />
-              <span>Reply</span>
-            </a-button>
-          </template>
-        </a-comment>
+      <ContentBox title="评论" >
         <a-comment align="right"
           avatar="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp">
+          
           <template #actions>
             <a-button key="0" type="secondary"> Cancel </a-button>
-            <a-button key="1" type="primary"> Reply </a-button>
+            <a-button key="1" type="primary"> Comment </a-button>
           </template>
           <template #content>
             <a-input placeholder="Here is you content." />
           </template>
         </a-comment>
+        <a-divider />
+        <a-comment align="right" author="Balzac"
+          avatar="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
+          content="A design is a plan or specification for the construction of an object
+          or system or for the implementation of an activity or process, or the
+          result of that plan or specification in the form of a prototype,
+          product or process." datetime="1 hour">
+          <template #actions>
+            <a-button class="action-btn" type="text">
+              <IconMessage :style="{ marginRight: '5px' }" />
+              <span>Reply</span>
+            </a-button>
+          </template>
+
+
+        </a-comment>
+        <a-comment align="right" author="Balzac"
+          avatar="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
+          content="A design is a plan or specification for the construction of an object
+          or system or for the implementation of an activity or process, or the
+          result of that plan or specification in the form of a prototype,
+          product or process." datetime="1 hour">
+          <template #actions>
+            <a-button class="action-btn" type="text">
+              <IconMessage :style="{ marginRight: '5px' }" />
+              <span>Reply</span>
+            </a-button>
+          </template>
+
+
+        </a-comment>
+        <a-comment align="right" author="Balzac"
+          avatar="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp"
+          content="A design is a plan or specification for the construction of an object
+          or system or for the implementation of an activity or process, or the
+          result of that plan or specification in the form of a prototype,
+          product or process." datetime="1 hour">
+          <template #actions>
+            <a-button class="action-btn" type="text">
+              <IconMessage :style="{ marginRight: '5px' }" />
+              <span>Reply</span>
+            </a-button>
+          </template>
+        </a-comment>
+
+        <a-pagination :total="10000" size="large" class="pagination" />
       </ContentBox>
     </Home>
 
@@ -113,5 +117,10 @@ const images = [
 
 .action-btn {
   color: #4e5969;
+}
+
+.pagination {
+  margin: 50px auto 0;
+  justify-content: center;
 }
 </style>

@@ -7,6 +7,11 @@
                 <ArticleBox :article="article_1" />
                 <ArticleBox :article="article_2" />
                 <ArticleBox :article="article_3" :divider="false" />
+
+                <a-pagination :total="10000" size="large" class="pagination" />
+
+            </ContentBox>
+            <ContentBox>
                 <a-divider orientation="center" class="mid-divider" margin="50px">旅行日记</a-divider>
                 <a-carousel :auto-play="true" class="carousel-chart round-box" show-arrow="never" direction="vertical"
                     animationName="fade">
@@ -17,7 +22,6 @@
                 <a-divider orientation="center" class="mid-divider" margin="50px">推荐板块</a-divider>
                 <RecommendBox :pictures="pictures" />
             </ContentBox>
-
         </Home>
     </div>
 </template>
@@ -103,5 +107,10 @@ const images = ['/big-pic.jpg', '/big-pic.jpg', '/big-pic.jpg', '/big-pic.jpg']
         font-weight: 700;
         color: #333;
     }
+}
+
+.pagination {
+    margin: 50px auto 0;
+    justify-content: center;
 }
 </style>

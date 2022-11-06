@@ -29,7 +29,7 @@
       </li>
       <li>
         <a-tooltip content="WeChat" position="bottom">
-          <a-link type="text"  :href="link.WeChat" class="href-link" target="_blank">
+          <a-link type="text" :href="link.WeChat" class="href-link" target="_blank">
             <template #icon>
               <icon-wechat size="16" />
             </template>
@@ -75,6 +75,7 @@ const link = {
   justify-content: space-around;
   align-items: center;
   padding: 0;
+  margin: 2vh 0 0;
 
   li {
     margin: 0 5px;

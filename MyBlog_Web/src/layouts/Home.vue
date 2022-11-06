@@ -55,7 +55,7 @@ const linkList = [{
 <style scoped lang='less'>
 .layout-home {
     position: relative;
-    margin: 100px auto 50px;
+    margin: 10vh auto 50px;
     padding: 0 10vw;
 
     // max-width: 70vw;
@@ -67,7 +67,7 @@ const linkList = [{
 .left-sider {
     box-sizing: border-box;
     position: sticky;
-    top: 100px;
+    top: 10vh;
     // width: 150px;
     background-color: #fff;
     border-radius: 10px;
@@ -91,19 +91,10 @@ const linkList = [{
     }
 }
 
-.content {
-    // background-color: #fff;
-    // margin: 0 20px;
-    // padding: 40px;
-    // // height: 4000px;
-    // background-color: #fff;
-    // border-radius: 10px;
-    // box-shadow: 0 2px 15px rgb(0 0 0 / 2%);
-}
 
 .right-sider {
     position: sticky;
-    top: 5px;
+    top: 1vh;
     width: 250px;
     background-color: transparent;
     border-radius: 10px;
