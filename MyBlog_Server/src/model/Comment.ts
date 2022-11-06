@@ -7,3 +7,5 @@ interface Comment {
     updated_at: string;
     deleted_at: string;
 }
+
+export { Comment };

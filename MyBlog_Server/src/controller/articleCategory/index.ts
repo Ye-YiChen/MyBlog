@@ -19,9 +19,8 @@ async function getArticleCategoriesByUserId(req: Request, res: Response) {
 
 async function getArticleCategoryInfo(req: Request, res: Response) {
     const { article_category_id } = req.params;
-    const { page, pageSize } = req.query;
     try {
-        const [articleCategory] = await queryArticleCategoryInfo(parseInt(article_category_id), parseInt(page as string), parseInt(pageSize as string));
+        const [articleCategory] = await queryArticleCategoryInfo(parseInt(article_category_id));
         res.json(SuccessResult(articleCategory));
         return;
     } catch {

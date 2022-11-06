@@ -4,6 +4,8 @@ interface User{
     password: string;
     salt: string;
     avatar: string;
+    description: string;
+    email: string;
     QQ: string;
     wechat: string;
     github: string;

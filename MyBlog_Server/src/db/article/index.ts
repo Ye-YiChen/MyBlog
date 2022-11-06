@@ -2,7 +2,7 @@ import db from '../index';
 import { Article } from "src/model/Article";
 
 /**
- * 查询指定用户的文章
+ * 查询指定用户的文章，按照时间倒序排列
  * @param user_id 用户id
  * @param page 查询的页数 从0开始
  * @param pageSize 每页的文章数
@@ -10,7 +10,7 @@ import { Article } from "src/model/Article";
 function queryArticlesByUserId(user_id: number, page: number, pageSize: number) {
     return new Promise<Article[]>((resolve, reject) => {
         user_id = parseInt(db.escape(user_id));
-        const sql = `select article_id, title, content, pictures, article_category_id, created_at from article where user_id=${user_id} limit ${(page - 1) * pageSize}, ${pageSize}`;
+        const sql = `select article_id, title, content, pictures, article_category_id, created_at from article where user_id=${user_id} order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
         db.query(sql, (err: Error, result: Article[]) => {
             if (err) {
                 reject(err);
@@ -22,7 +22,7 @@ function queryArticlesByUserId(user_id: number, page: number, pageSize: number) 
 }
 
 /**
- * 查询指定分类的文章
+ * 查询指定分类的文章，按照时间倒序排列
  * @param article_category_id 文章分类id
  * @param page 查询的页数 从0开始
  * @param pageSize 每页的文章数
@@ -30,7 +30,7 @@ function queryArticlesByUserId(user_id: number, page: number, pageSize: number) 
 function queryArticlesByCategoryId(article_category_id: number, page: number, pageSize: number) {
     return new Promise<Article[]>((resolve, reject) => {
         article_category_id = parseInt(db.escape(article_category_id));
-        const sql = `select article_id, title, content, pictures, user_id from article, created_at where article_category_id=${article_category_id} limit ${(page - 1) * pageSize}, ${pageSize}`;
+        const sql = `select article_id, title, content, pictures, user_id, created_at from article where article_category_id=${article_category_id} order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
         db.query(sql, (err: Error, result: Article[]) => {
             if (err) {
                 reject(err);
