@@ -1,7 +1,8 @@
 import express from 'express';
+import { login } from 'src/controller/login';
+
 const loginRouter = express.Router();
 
-loginRouter.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+// 以下所有路由都是以/login开头的
+loginRouter.post('/', login);
 export default loginRouter;
