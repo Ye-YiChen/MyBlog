@@ -20,8 +20,8 @@
                         </a-input>
                     </a-form-item>
                     <a-form-item field="password" required hide-asterisk>
-                        <a-input-password v-model="form.post" placeholder="please enter your password..." size="large"
-                            allow-clear>
+                        <a-input-password v-model="form.password" placeholder="please enter your password..."
+                            size="large" allow-clear>
                             <template #prefix>
                                 <icon-lock />
                             </template>
@@ -33,7 +33,8 @@
                         </a-checkbox>
                     </a-form-item>
                     <a-form-item>
-                        <a-button shape="round" size="large" type="primary" long :disabled="!form.isOK">Submit
+                        <a-button shape="round" size="large" type="primary" long :disabled="!form.isOK"
+                            @click.enter="submit">Submit
                         </a-button>
                     </a-form-item>
                 </a-form>
@@ -45,13 +46,30 @@
 
 <script setup lang='ts'>
 import Login from '@/layouts/Login.vue';
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
+import { UserLogin } from '@/api/Login';
+import { Message } from '@arco-design/web-vue';
 const layout = ref<"horizontal" | "vertical" | "inline" | undefined>('vertical')
 const form = reactive({
     name: '',
-    post: '',
+    password: '',
     isOK: false
 });
+const isFormFill = computed(() => {
+    return form.name !== '' && form.password !== '';
+})
+async function submit() {
+    if (!form.isOK) {
+        Message.warning('请先同意协议！');
+        return;
+    }
+    if (!isFormFill.value) {
+        Message.warning('请填写完整的表单！');
+        return;
+    }
+    const {data} = await UserLogin(form.name, form.password);
+    console.log(data)
+}
 </script>
 
 <style scoped lang='less'>
