@@ -24,18 +24,31 @@
     border-radius: 5px;
     overflow: hidden;
 }
-.red{
-    color: rgb(240,80,110);
+
+.red {
+    color: rgb(240, 80, 110);
 }
-.green{
-    color: rgb(114,229,169);
+
+.green {
+    color: rgb(114, 229, 169);
 }
-.light-blue{
-    color: rgb(63,197,246);
+
+.light-blue {
+    color: rgb(63, 197, 246);
 }
-.deep-blue{
-    color: rgb(97,122,171);
+
+.deep-blue {
+    color: rgb(97, 122, 171);
 }
-.pointer{
+
+.pointer {
     cursor: pointer;
+}
+
+.no-margin {
+    margin: 0px;
+}
+
+.no-padding {
+    padding: 0px;
 }
