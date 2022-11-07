@@ -1,5 +1,7 @@
 <template>
-    <RouterView />
+    <div>
+        list-edit
+    </div>
 </template>
 
 <script setup lang='ts'>

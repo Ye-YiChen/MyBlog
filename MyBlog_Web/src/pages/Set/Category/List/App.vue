@@ -1,5 +1,7 @@
 <template>
-    <RouterView />
+    <div>
+        category-list
+    </div>
 </template>
 
 <script setup lang='ts'>

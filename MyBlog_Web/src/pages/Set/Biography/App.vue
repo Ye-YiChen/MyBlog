@@ -1,11 +1,9 @@
 <template>
-    <div>
-        Biography
-    </div>
+  <RouterView/>
 </template>
 
 <script setup lang='ts'>
-
+ 
 </script>
 
 <style scoped lang='less'>

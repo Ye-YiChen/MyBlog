@@ -29,5 +29,6 @@ const { title } = defineProps<Props>()
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 15px rgb(0 0 0 / 2%);
+    overflow: hidden;
 }
 </style>
