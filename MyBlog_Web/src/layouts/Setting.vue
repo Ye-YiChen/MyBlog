@@ -39,7 +39,7 @@ import NavButton from '@/components/LeftSider/NavButton/NavButton.vue';
 <style scoped lang='less'>
 .layout-setting {
     min-height: 100vh;
-    margin: 10vh auto;
+    margin: 7.5vh auto;
     padding: 0 10vw;
     height: 100000px;
 }
