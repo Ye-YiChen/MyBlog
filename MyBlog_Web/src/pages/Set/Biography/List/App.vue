@@ -1,6 +1,6 @@
 <template>
-    <ContentBox class="blog-box">
-        <a-descriptions :data="data" title="个人简介" size="large" bordered :column="2">
+    <ContentBox class="blog-box" title="个人简介">
+        <a-descriptions :data="data"  size="large" bordered :column="2">
             <a-descriptions-item v-for="item of data" :label="item.label">
                 <div v-if="item.type === 'text'">
                     <span class="big-text">{{ item.value }}</span>
@@ -31,11 +31,11 @@ const data = [
         value: 'https://avatars.githubusercontent.com/u/25154432?v=4',
         type: 'image'
     },
-    {
-        label: '联系方式',
-        value: '123-1234-1234',
-        type: 'text',
-    },
+    // {
+    //     label: '联系方式',
+    //     value: '123-1234-1234',
+    //     type: 'text',
+    // },
     {
         label: '个性签名',
         value: "YeYiChen's blog",

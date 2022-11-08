@@ -56,6 +56,7 @@
 <script setup lang='ts'>
 import Header from '@/components/Setting/Header/Header.vue';
 import { goRoute } from '@/utils/route'
+
 const links = {
     '0_0': 'BiographyList',
     '0_1': 'BiographyEdit',
@@ -64,13 +65,14 @@ const links = {
     '2_0': 'ArticlesList',
     '2_1': 'ArticlesAdd',
 }
-function onCollapse(collapsed: boolean) {
-    console.log(collapsed);
-}
+/**
+ * 点击菜单=>对应的路由名称
+ */
+const navs: Map<string, string> = new Map(Object.entries(links))
 
 function onClick(key: string) {
-    console.log(key)
-    goRoute(links[key])
+    const name = navs.get(key)!;
+    goRoute(name);
 }
 
 </script>

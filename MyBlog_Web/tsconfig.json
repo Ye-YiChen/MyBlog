@@ -1,17 +1,29 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "page/*": ["./src/pages/*"],
-    }
+      "@/*": [
+        "./src/*"
+      ],
+      "page/*": [
+        "./src/pages/*"
+      ],
+    },
+    // 添加es2017
+    "lib": [
+      "es2017",
+      "dom"
+    ]
   },
-
   "references": [
     {
       "path": "./tsconfig.config.json"
     }
-  ]
+  ],
 }
