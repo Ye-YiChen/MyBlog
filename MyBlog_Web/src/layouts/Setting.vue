@@ -57,23 +57,30 @@
 import Header from '@/components/Setting/Header/Header.vue';
 import { goRoute } from '@/utils/route'
 
-const links = {
-    '0_0': 'SetBiographyList',
-    '0_1': 'SetBiographyEdit',
-    '1_0': 'SetCategoryList',
-    '1_1': 'SetCategoryAdd',
-    '2_0': 'SetArticlesList',
-    '2_1': 'SetArticlesAdd',
-}
-/**
- * 点击菜单=>对应的路由名称
- */
-const navs: Map<string, string> = new Map(Object.entries(links))
 
-function onClick(key: string) {
-    const name = navs.get(key)!;
-    goRoute(name);
-}
+const onClick = (() => {
+    // 尝试闭包小技巧 私有化navs变量 **可能会引起内存泄漏**
+    const links = {
+        '0_0': 'SetBiographyList',
+        '0_1': 'SetBiographyEdit',
+        '1_0': 'SetCategoryList',
+        '1_1': 'SetCategoryAdd',
+        '2_0': 'SetArticlesList',
+        '2_1': 'SetArticlesAdd',
+    }
+    const navs: Map<string, string> = new Map(Object.entries(links))
+    /**
+     * @description: setting页面的导航栏点击事件
+     * @param key 点击的菜单项的key
+     */
+    return (key: string) => {
+        const routeName = navs.get(key)!;
+        goRoute(routeName, { user_id: 1 })
+    }
+})();
+
+
+
 
 </script>
 

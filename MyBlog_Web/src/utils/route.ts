@@ -2,6 +2,8 @@ import r from '@/router'
 /**
  * 跳转到指定页面
  * @param path 跳转路径或者路径名称
+ * @param params 跳转params参数 url形如：/path/:id
+ * @param query 跳转query参数 url形如：/path?id=1
  */
  function goRoute(path:string, params = {}, query = {}) {
     if (!path) {
