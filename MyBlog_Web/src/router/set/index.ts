@@ -5,27 +5,27 @@ import articleRouter from './articles'
 export default [
     {
         path: 'articles',
-        name: 'Articles',
+        name: 'SetArticles',
         component: () => import('page/Set/Articles/App.vue'),
-        redirect: { name: 'ArticlesList' },
+        redirect: { name: 'SetArticlesList' },
         children: [
             ...articleRouter
         ]
     },
     {
         path: 'biography',
-        name: 'Biography',
+        name: 'SetBiography',
         component: () => import('page/Set/Biography/App.vue'),
-        redirect: { name: 'BiographyList' },
+        redirect: { name: 'SetBiographyList' },
         children: [
             ...biographyRouter
         ]
     },
     {
         path: 'category',
-        name: 'Category',
+        name: 'SetCategory',
         component: () => import('page/Set/Category/App.vue'),
-        redirect: { name: 'CategoryList' },
+        redirect: { name: 'SetCategoryList' },
         children: [
             ...categoryRouter
         ]

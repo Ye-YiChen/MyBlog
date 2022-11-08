@@ -1,12 +1,12 @@
 export default [
     {
         path: 'add',
-        name: 'ArticlesAdd',
+        name: 'SetArticlesAdd',
         component: () => import('page/Set/Articles/Add/App.vue')
     },
     {
         path: 'list',
-        name: 'ArticlesList',
+        name: 'SetArticlesList',
         component: () => import('page/Set/Articles/List/App.vue')
     }
 ]

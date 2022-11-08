@@ -1,12 +1,12 @@
 export default [
     {
         path: 'list',
-        name: 'BiographyList',
+        name: 'SetBiographyList',
         component: () => import('page/Set/Biography/List/App.vue')
     },
     {
         path: 'edit',
-        name: 'BiographyEdit',
+        name: 'SetBiographyEdit',
         component: () => import('page/Set/Biography/Edit/App.vue')
     }
 ]

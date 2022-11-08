@@ -1,12 +1,12 @@
 export default [
     {
         path: 'list',
-        name: 'CategoryList',
+        name: 'SetCategoryList',
         component: () => import('page/Set/Category/List/App.vue')
     },
     {
         path: 'add',
-        name: 'CategoryAdd',
+        name: 'SetCategoryAdd',
         component: () => import('page/Set/Category/Add/App.vue')
     }
 ]

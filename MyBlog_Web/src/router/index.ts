@@ -33,7 +33,7 @@ const router = createRouter({
       path: '/set/:user_id',
       name: 'Set',
       component: () => import('page/Set/App.vue'),
-      redirect: { name: 'Biography' },
+      redirect: { name: 'SetBiography' },
       children: [
         ...set
       ]

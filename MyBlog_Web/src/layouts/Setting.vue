@@ -58,12 +58,12 @@ import Header from '@/components/Setting/Header/Header.vue';
 import { goRoute } from '@/utils/route'
 
 const links = {
-    '0_0': 'BiographyList',
-    '0_1': 'BiographyEdit',
-    '1_0': 'CategoryList',
-    '1_1': 'CategoryAdd',
-    '2_0': 'ArticlesList',
-    '2_1': 'ArticlesAdd',
+    '0_0': 'SetBiographyList',
+    '0_1': 'SetBiographyEdit',
+    '1_0': 'SetCategoryList',
+    '1_1': 'SetCategoryAdd',
+    '2_0': 'SetArticlesList',
+    '2_1': 'SetArticlesAdd',
 }
 /**
  * 点击菜单=>对应的路由名称
