@@ -1,5 +1,5 @@
 <template>
-  <ContentBox title="文章列表">
+  <ContentBox title="文章列表" class="blog-box">
     <a-space direction="vertical" size="large">
       <ArticleItem :article="article" />
       <ArticleItem :article="article"/>
@@ -27,5 +27,11 @@ const article = {
 </script>
 
 <style scoped lang='less'>
-
+.blog-box {
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: 1vw;
+    height: auto;
+    height: 100%;
+}
 </style>
