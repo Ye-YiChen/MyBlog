@@ -10,8 +10,9 @@
 interface Props {
     bgc?: string;
 }
-const { bgc = '@/assets/img/wallhaven-k7v9yq.png' } = defineProps<Props>();
-const url = new URL(bgc, import.meta.url).href;
+const defaultImg = '/src/assets/img/wallhaven-y8622k.jpg'
+const { bgc } = defineProps<Props>();
+const url = new URL(bgc ?? defaultImg, import.meta.url).href;
 </script>
 
 <style scoped lang='less'>

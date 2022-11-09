@@ -1,5 +1,5 @@
 <template>
-    <Login bgc="/src/assets/img/wallhaven-0jjqrq.jpg">
+    <Login>
         <div class="main-box">
             <div class="title">
                 <h2>MyBlog</h2>
@@ -67,7 +67,7 @@ async function submit() {
         Message.warning('请填写完整的表单！');
         return;
     }
-    const {data} = await UserLogin(form.name, form.password);
+    const { data } = await UserLogin(form.name, form.password);
     console.log(data)
 }
 </script>
