@@ -1,7 +1,7 @@
 <template>
     <a-card hoverable :style="{ width: '100%' }">
         <template #title>
-            <a-space size="large">
+            <a-space size="large" class="normal-text">
                 <span>
                     <icon-calendar />
                     {{ article.date.toLocaleDateString() }}

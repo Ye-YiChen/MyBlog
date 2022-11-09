@@ -38,7 +38,7 @@
     </a-space>
     <a-divider />
     <div class="main">
-      <v-md-editor v-model="article" height="400px" mode="preview"></v-md-editor>
+      <MdEditor v-model="article" previewOnly />
       <a-button type="dashed" status="warning" class="donate-btn" size="large">
         <template #icon>
           <icon-gift size="large" />
@@ -81,8 +81,12 @@
   
 <script setup lang='ts'>
 import { ref } from 'vue';
+import MdEditor from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 
-const article = ref(`# hello
+const article = ref(`
+  # hello
+  
   染指流沙，回绕不尽的世界繁华；
   
   青灯孤伴，镌刻不完的午夜落花；
@@ -105,6 +109,7 @@ const article = ref(`# hello
 .short-info {
   // justify-content: space-between;
   width: 100%;
+
   .link {
     color: #888;
     margin-right: .5vw;
@@ -121,6 +126,10 @@ const article = ref(`# hello
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+
+  .donate-btn{
+    margin-top: 10vh;
+  }
 
   .donate-text {
     line-height: 10px;
