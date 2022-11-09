@@ -113,16 +113,21 @@ h4 {
     .login-box {
         box-sizing: border-box;
         margin-top: 5vh;
-        min-width: 20vw;
+        min-width: 25vw;
         max-width: 30vw;
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.8);
         padding: 24px 32px 8px;
         border-radius: 10px;
         color: black;
 
         .operate-choice {
+            background-color: transparent;
             border-bottom: 1px solid #e8e8e8;
             margin-bottom: 30px;
+        }
+        // 修改 acro-design的input的样式
+        &:deep(.arco-input-wrapper) {
+            background-color: rgba(255, 255, 255, 0.5);
         }
     }
 }
