@@ -2,16 +2,17 @@
   <ContentBox title="文章列表" class="blog-box">
     <a-space direction="vertical" size="large">
       <ArticleItem :article="article" />
-      <ArticleItem :article="article"/>
-      <ArticleItem :article="article"/>
-      <ArticleItem :article="article"/>
+      <ArticleItem :article="article" />
+      <ArticleItem :article="article" />
+      <ArticleItem :article="article" />
+      <a-pagination :total="50" class="bottom-pagination" />
     </a-space>
   </ContentBox>
 </template>
 
 <script setup lang='ts'>
 import ContentBox from '@/components/Main/ContentBox/ContentBox.vue';
-import ArticleItem from '@/components/Setting/Main/Category/ArticleItem/ArticleItem.vue';
+import ArticleItem from '@/components/Setting/Main/Articles/ArticleItem/ArticleItem.vue';
 
 const article = {
   id: 1,
@@ -28,10 +29,14 @@ const article = {
 
 <style scoped lang='less'>
 .blog-box {
-    box-sizing: border-box;
-    margin: 0;
-    margin-left: 1vw;
-    height: auto;
-    height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  margin-left: 1vw;
+  height: auto;
+  height: 100%;
+}
+.bottom-pagination{
+  justify-content: center;
+  margin-top: 5vh;
 }
 </style>

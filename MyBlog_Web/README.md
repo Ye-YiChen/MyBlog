@@ -7,4 +7,4 @@
 [个人中心页面样式参考](https://blog.csdn.net/jackzj1/article/details/124795029)
 
 [markdown文档](https://imzbf.github.io/md-editor-v3/docs) 
-[markdown参考文字](https://juejin.cn/post/6991731267909713928#heading-11)
+[markdown参考文章](https://juejin.cn/post/6991731267909713928#heading-11)

@@ -23,7 +23,7 @@
       </a-input-tag>
       <MdEditor v-model="article" ></MdEditor>
 
-      <a-space size="large"> 
+      <a-space size="large" class="submit-btn"> 
         <!-- <a-button type="primary" size="large" @click="isPreview=!isPreview">预览</a-button> -->
         <a-button type="outline" size="large" long>发布文章</a-button>
       </a-space>
@@ -39,7 +39,6 @@ import 'md-editor-v3/lib/style.css';
 const article = ref("# test")
 const isPreview = ref(false)
 </script>
-
 <style scoped lang='less'>
 .blog-box {
   box-sizing: border-box;
@@ -47,5 +46,8 @@ const isPreview = ref(false)
   margin-left: 1vw;
   height: auto;
   height: 100%;
+}
+.submit-btn {
+    flex: 1;
 }
 </style>

@@ -16,7 +16,7 @@
 
 <script setup lang='ts'>
 import { reactive } from 'vue';
-import ContentBox from '../../../../components/Main/ContentBox/ContentBox.vue';
+import ContentBox from '@/components/Main/ContentBox/ContentBox.vue';
 const fileList = reactive([]);
 const acceptableImageType = ['image/png', 'image/jpeg', 'image/gif'];
 console.log(acceptableImageType.join(","))
