@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { queryArticleCategoriesByUserId, queryArticleCategoryInfo, addArticleCategory } from "src/db/articleCategory";
+import { queryArticleCategoriesByUserId, queryArticleCategoryInfo, addArticleCategory, removeArticleCategory } from "src/db/articleCategory";
 import { ArticleCategory } from "src/model/ArticleCategory";
 import { SuccessResult, ErrorResult } from "src/model/Result";
 
@@ -32,7 +32,7 @@ async function getArticleCategoryInfo(req: Request, res: Response) {
 
 async function putArticleCategory(req: Request, res: Response) {
     const { user_id } = req.params;
-    if(!user_id){
+    if (!user_id) {
         res.json(ErrorResult('user_id empty error'));
         return;
     }
@@ -47,5 +47,17 @@ async function putArticleCategory(req: Request, res: Response) {
     }
 }
 
+async function deleteArticleCategory(req: Request, res: Response) {
+    const { article_category_id } = req.params;
+    try {
+        await removeArticleCategory(parseInt(article_category_id));
+        res.json(SuccessResult(null));
+        return;
+    } catch {
+        res.json(ErrorResult('article_category_id error'));
+        return;
+    }
+}
 
-export { getArticleCategoriesByUserId, getArticleCategoryInfo, putArticleCategory };
+
+export { getArticleCategoriesByUserId, getArticleCategoryInfo, putArticleCategory, deleteArticleCategory };

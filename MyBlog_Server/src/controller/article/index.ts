@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle } from "src/db/article";
+import { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle, removeArticle } from "src/db/article";
 import { Article } from "src/model/Article";
 // import { Article } from "src/model/Article";
 import { SuccessResult, ErrorResult } from "src/model/Result";
@@ -80,6 +80,19 @@ async function putArticle(req: Request, res: Response) {
     }
 }
 
+async function deleteArticle(req: Request, res: Response) {
+    const { article_id } = req.params;
+    try {
+        await removeArticle(parseInt(article_id));
+        res.json(SuccessResult(null));
+        return;
+    } catch {
+        res.json(ErrorResult('article_id error'));
+        return;
+    }
+}
 
 
-export { getArticlesByUserId, getArticlesByCategoryId, getArticleInfo, putArticle };
+
+
+export { getArticlesByUserId, getArticlesByCategoryId, getArticleInfo, putArticle, deleteArticle };

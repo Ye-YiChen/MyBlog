@@ -10,7 +10,8 @@ import { Article } from "src/model/Article";
 function queryArticlesByUserId(user_id: number, page: number, pageSize: number) {
     return new Promise<Article[]>((resolve, reject) => {
         user_id = parseInt(db.escape(user_id));
-        const sql = `select article_id, title, content, pictures, article_category_id, created_at from article where user_id=${user_id} order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
+        // deleted_at 软删除
+        const sql = `select article_id, title, content, pictures, user_id, created_at from article where user_id=${user_id} and deleted_at is null order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
         db.query(sql, (err: Error, result: Article[]) => {
             if (err) {
                 reject(err);
@@ -30,7 +31,7 @@ function queryArticlesByUserId(user_id: number, page: number, pageSize: number) 
 function queryArticlesByCategoryId(article_category_id: number, page: number, pageSize: number) {
     return new Promise<Article[]>((resolve, reject) => {
         article_category_id = parseInt(db.escape(article_category_id));
-        const sql = `select article_id, title, content, pictures, user_id, created_at from article where article_category_id=${article_category_id} order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
+        const sql = `select article_id, title, content, pictures, user_id, created_at from article where article_category_id=${article_category_id} and deleted_at is null order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
         db.query(sql, (err: Error, result: Article[]) => {
             if (err) {
                 reject(err);
@@ -48,7 +49,7 @@ function queryArticlesByCategoryId(article_category_id: number, page: number, pa
 function queryArticleInfo(article_id: number) {
     return new Promise<Article[]>((resolve, reject) => {
         article_id = parseInt(db.escape(article_id));
-        const sql = `select title, content, pictures, user_id, article_category_id, created_at from article where article_id=${article_id}`;
+        const sql = `select title, content, pictures, user_id, article_category_id, created_at from article where article_id=${article_id} and deleted_at is null  `;
         db.query(sql, (err: Error, result: Article[]) => {
             if (err) {
                 reject(err);
@@ -78,5 +79,22 @@ function addArticle(user_id: number, article: Article) {
     });
 }
 
+/**
+ * 对指定文章id的文章进行软删除
+ * @param article_id 文章id
+ */
+function removeArticle(article_id: number) {
+    return new Promise((resolve, reject) => {
+        // 软删除
+        const sql = `update article set deleted_at=now() where article_id=${article_id}`;
+        db.query(sql, (err: Error, result: any) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
 
-export { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle };
+export { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle, removeArticle };;

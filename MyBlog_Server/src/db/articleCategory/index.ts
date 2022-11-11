@@ -9,7 +9,7 @@ import { ArticleCategory } from "src/model/ArticleCategory";
  */
 function queryArticleCategoriesByUserId(user_id: number, page: number, pageSize: number) {
     return new Promise<ArticleCategory[]>((resolve, reject) => {
-        const sql = `select name, description, tags, view, like, custom, created_at from article_category where user_id=${user_id} order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
+        const sql = `select name, description, tags, view, like, custom, created_at from article_category where user_id=${user_id} and deleted_at is null  order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
         db.query(sql, (err: Error, result: ArticleCategory[]) => {
             if (err) {
                 reject(err);
@@ -28,7 +28,7 @@ function queryArticleCategoriesByUserId(user_id: number, page: number, pageSize:
  */
 function queryArticleCategoryInfo(article_category_id: number) {
     return new Promise<ArticleCategory[]>((resolve, reject) => {
-        const sql = `select name, description, tags, view, like, custom, created_at from article_category where article_category_id=${article_category_id} order by created_at desc`;
+        const sql = `select name, description, tags, view, like, custom, created_at from article_category where article_category_id=${article_category_id} and deleted_at is null  order by created_at desc`;
         db.query(sql, (err: Error, result: ArticleCategory[]) => {
             if (err) {
                 reject(err);
@@ -54,5 +54,17 @@ function addArticleCategory(user_id: number, category_info: ArticleCategory) {
     });
 }
 
+function removeArticleCategory(article_category_id: number) {
+    return new Promise<ArticleCategory>((resolve, reject) => {
+        const sql = `update article_category set deleted_at=now() where article_category_id=${article_category_id}`;
+        db.query(sql, (err: Error, result: ArticleCategory) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
 
-export { queryArticleCategoriesByUserId, queryArticleCategoryInfo, addArticleCategory };
+export { queryArticleCategoriesByUserId, queryArticleCategoryInfo, addArticleCategory, removeArticleCategory };
