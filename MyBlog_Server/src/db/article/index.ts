@@ -59,4 +59,24 @@ function queryArticleInfo(article_id: number) {
     });
 }
 
-export { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo };
+function addArticle(user_id: number, article: Article) {
+    return new Promise((resolve, reject) => {
+        const { article_category_id, title, content, pictures, custom, tags } = article;
+        if (!article_category_id) {
+            reject('article_category_id empty error');
+            return;
+        }
+        const sql = `insert into article (user_id, article_category_id, title, content, pictures, custom, tags, created_at) values (${user_id}, ${article_category_id}, '${title ?? ""}', '${content ?? ""}', '${pictures ?? ""}',${custom ?? ""},'${tags ?? ""}',now())`;
+        db.query(sql, (err: Error, result: any) => {
+            if (err) {
+                console.log(err)
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+
+
+export { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle };

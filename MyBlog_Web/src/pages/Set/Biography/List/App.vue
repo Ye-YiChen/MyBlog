@@ -1,12 +1,13 @@
 <template>
     <ContentBox class="blog-box" title="个人简介">
-        <a-descriptions :data="data"  size="large" bordered :column="2">
+        <a-descriptions :data="data" size="large" bordered :column="2">
             <a-descriptions-item v-for="item of data" :label="item.label">
                 <div v-if="item.type === 'text'">
                     <span class="big-text">{{ item.value }}</span>
                 </div>
                 <div v-else-if="item.type === 'image'">
-                    <a-avatar :src="item.label" />
+                    <a-image width="100" height="100"
+                        :src="item.label" />
                 </div>
 
                 <div v-else-if="item.type === 'link'">
@@ -54,7 +55,7 @@ const data = [
     {
         label: 'wechat',
         value: '',
-        type: 'text',
+        type: 'image',
     },
     {
         label: 'Github',
@@ -65,11 +66,11 @@ const data = [
     {
         label: '赞赏码',
         value: '',
-        type: 'text',
+        type: 'image',
     },
     {
         label: '注册日期',
-        value: (new Date()).toString(),
+        value: (new Date()).toLocaleString(),
         type: 'text'
     }
 ];

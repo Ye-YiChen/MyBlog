@@ -5,6 +5,7 @@ import userRouter from 'src/routes/user';
 import articleRouter from 'src/routes/article';
 import articleCategoryRouter from 'src/routes/articleCategory';
 
+import { authToken } from 'src/middleware/token';
 const app = express();
 app.all("*", function (req, res, next) {
   // if ((req.headers.origin as string).toLowerCase() == "http://127.0.0.1:5173") {
@@ -31,11 +32,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/login', loginRouter);
 
-app.use('/user', userRouter);
+app.use('/user', authToken, userRouter);
 
-app.use('/article', articleRouter);
+app.use('/article', authToken, articleRouter);
 
-app.use('/articleCategory', articleCategoryRouter);
+app.use('/articleCategory', authToken, articleCategoryRouter);
 // 开启服务
 app.listen(3000, () => {
   console.log('listening on http://localhost:3000');

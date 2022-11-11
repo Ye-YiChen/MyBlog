@@ -38,11 +38,18 @@ function queryUserInfo(user_id: number) {
     });
 }
 
+/**
+ * 全量更新用户信息
+ * @param user_id 用户id
+ * @param user 用户信息
+ */
 function updateUserInfo(user_id: number, user: User) {
-    return new Promise<User[]>((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
         user_id = parseInt(db.escape(user_id));
-        const sql = `UPDATE user SET username=${user.username}, avatar=${user.avatar}, email=${user.email}, QQ=${user.QQ}, wechat=${user.wechat}, github=${user.github}, donation=${user.donation} WHERE user_id=${user_id}`;
-        db.query(sql, (err: Error, result: User[]) => {
+        // 如果有值就更新，没有值就不更新
+        const { username, avatar, email, QQ, wechat, github, donation } = user;
+        const sql = `UPDATE user SET username=${username ? db.escape(username) : 'username'}, avatar=${avatar ? db.escape(avatar) : 'avatar'}, email=${email ? db.escape(email) : 'email'}, QQ=${QQ ? db.escape(QQ) : 'QQ'}, wechat=${wechat ? db.escape(wechat) : 'wechat'}, github=${github ? db.escape(github) : 'github'}, donation=${donation ? db.escape(donation) : 'donation'} WHERE user_id=${user_id}`;
+        db.query(sql, (err: Error, result: any) => {
             if (err) {
                 reject(err);
                 return;
