@@ -1,5 +1,5 @@
 import db from '../index';
-import {ArticleCategory} from "src/model/ArticleCategory";
+import { ArticleCategory } from "src/model/ArticleCategory";
 
 /**
  * 根据用户id查询用户的所有文章分类,按照创建时间倒序排列
@@ -9,7 +9,7 @@ import {ArticleCategory} from "src/model/ArticleCategory";
  */
 function queryArticleCategoriesByUserId(user_id: number, page: number, pageSize: number) {
     return new Promise<ArticleCategory[]>((resolve, reject) => {
-        const sql = `select name, description, created_at from article_category where user_id=${user_id} order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
+        const sql = `select name, description, tags, view, like, custom, created_at from article_category where user_id=${user_id} order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
         db.query(sql, (err: Error, result: ArticleCategory[]) => {
             if (err) {
                 reject(err);
@@ -28,7 +28,7 @@ function queryArticleCategoriesByUserId(user_id: number, page: number, pageSize:
  */
 function queryArticleCategoryInfo(article_category_id: number) {
     return new Promise<ArticleCategory[]>((resolve, reject) => {
-        const sql = `select name, description, created_at from article_category where article_category_id=${article_category_id} order by created_at desc`;
+        const sql = `select name, description, tags, view, like, custom, created_at from article_category where article_category_id=${article_category_id} order by created_at desc`;
         db.query(sql, (err: Error, result: ArticleCategory[]) => {
             if (err) {
                 reject(err);
@@ -39,4 +39,20 @@ function queryArticleCategoryInfo(article_category_id: number) {
     });
 }
 
-export { queryArticleCategoriesByUserId, queryArticleCategoryInfo };
+function addArticleCategory(user_id: number, category_info: ArticleCategory) {
+    return new Promise<ArticleCategory>((resolve, reject) => {
+        // 为空的字段默认并防止sql注入
+        const sql = `insert into article_category (user_id,name,description,tags,custom,created_at) values (${user_id},'${category_info.name ?? ""}','${category_info.description ?? ""}',${category_info.tags ?? ""},${category_info.custom ?? ""}now())`;
+        db.query(sql, (err: Error, result: ArticleCategory) => {
+            if (err) {
+                console.log(err)
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+
+
+export { queryArticleCategoriesByUserId, queryArticleCategoryInfo, addArticleCategory };

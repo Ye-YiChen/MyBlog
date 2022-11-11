@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo } from "src/db/article";
+import { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle } from "src/db/article";
+import { Article } from "src/model/Article";
 // import { Article } from "src/model/Article";
 import { SuccessResult, ErrorResult } from "src/model/Result";
 
@@ -57,4 +58,28 @@ async function getArticleInfo(req: Request, res: Response) {
     }
 }
 
-export { getArticlesByUserId, getArticlesByCategoryId, getArticleInfo };
+async function putArticle(req: Request, res: Response) {
+    const { user_id } = req.params;
+    const { article_category_id } = req.body;
+    if (!user_id) {
+        res.json(ErrorResult('user_id empty error'));
+        return;
+    }
+    if (!article_category_id) {
+        res.json(ErrorResult('article_category_id empty error'));
+        return;
+    }
+    const article_info: Article = req.body;
+    try {
+        await addArticle(parseInt(user_id), article_info);
+        res.json(SuccessResult(null));
+        return;
+    } catch {
+        res.json(ErrorResult('user_id error'));
+        return;
+    }
+}
+
+
+
+export { getArticlesByUserId, getArticlesByCategoryId, getArticleInfo, putArticle };

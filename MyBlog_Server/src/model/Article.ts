@@ -2,7 +2,7 @@ interface Article {
     article_id: number;
     title: string;
     content: string;
-    picture: string;
+    pictures: string;
     view: number; // 浏览量
     like: number; // 点赞量
     tags: string;
