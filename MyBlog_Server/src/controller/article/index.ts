@@ -12,6 +12,14 @@ import { SuccessResult, ErrorResult } from "src/model/Result";
 async function getArticlesByUserId(req: Request, res: Response) {
     const { user_id } = req.params;
     const { page, pageSize } = req.query;
+    if(!user_id){
+        res.json(ErrorResult('user_id empty error'));
+        return;
+    }
+    if(!(page && pageSize)){
+        res.json(ErrorResult('page or pageSize empty error'));
+        return;
+    }
     try {
         const articles = await queryArticlesByUserId(parseInt(user_id), parseInt(page as string), parseInt(pageSize as string));
         res.json(SuccessResult(articles));

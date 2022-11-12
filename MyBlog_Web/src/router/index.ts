@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import set from './set'
+import { checkToken } from './middleware/token';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,4 +43,9 @@ const router = createRouter({
   ]
 })
 
+
+router.beforeEach(checkToken)
+
 export default router
+
+

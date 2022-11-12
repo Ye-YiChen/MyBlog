@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserInfo, putUserInfo } from 'src/controller/user';
+import { getUserInfo, putUserInfo, getUserByToken } from 'src/controller/user';
 import { getArticlesByUserId, putArticle } from 'src/controller/article';
 import { getArticleCategoriesByUserId, putArticleCategory } from 'src/controller/articleCategory';
 
@@ -13,4 +13,6 @@ userRouter.put('/:user_id/info', putUserInfo);
 userRouter.put('/:user_id/articles', putArticle);
 userRouter.put('/:user_id/articleCategories', putArticleCategory);
 
+
+userRouter.get('/token', getUserByToken);
 export default userRouter;

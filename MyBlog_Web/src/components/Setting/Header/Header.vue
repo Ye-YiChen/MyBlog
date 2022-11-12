@@ -1,17 +1,20 @@
 <template>
     <div class="set-header">
-        <a-avatar :size="128" shape="square">Arco</a-avatar>
+        <a-avatar :size="128" shape="square" :src="user.avatar">
+            <img :alt="user.username" :src="user.avatar" v-if="user.avatar"/>
+            <span v-else>{{user.username}}</span>
+        </a-avatar>
         <div class="user-info">
             <a-typography-title :heading="5" class="no-margin">
-                YeYiChen
+                {{ user.username }}
             </a-typography-title>
             <a-typography-paragraph class="no-margin">
-                YeYiChen's blog
+                {{ user.description }}
             </a-typography-paragraph>
             <ul class="icon-box">
                 <li>
                     <a-tooltip content="QQ" position="bottom">
-                        <a-link type="text" :href="link.QQ" class="href-link" target="_blank">
+                        <a-link type="text" :href="QQlink" class="href-link" target="_blank">
                             <template #icon>
                                 <icon-qq size="16" />
                             </template>
@@ -21,19 +24,29 @@
 
                 </li>
                 <li>
-                    <a-tooltip content="WeChat" position="bottom">
-                        <a-link type="text" :href="link.WeChat" class="href-link" target="_blank">
+                    <a-tooltip position="bottom">
+                        <a-link type="text" :href="user.wechat" class="href-link" target="_blank">
                             <template #icon>
                                 <icon-wechat size="16" />
                             </template>
                         </a-link>
-
+                        <template #content>
+                            <div class="img-box" :style="{
+                                width: '100px',
+                                height: '100px',
+                            }">
+                                <img :src="user.wechat" :style="{
+                                    width: '100%',
+                                    height: '100%',
+                                }" />
+                            </div>
+                        </template>
                     </a-tooltip>
 
                 </li>
                 <li>
                     <a-tooltip content="GitHub" position="bottom">
-                        <a-link type="text" :href="link.GitHub" class="href-link" target="_blank">
+                        <a-link type="text" :href="user.git" class="href-link" target="_blank">
                             <template #icon>
                                 <icon-github size="16" />
                             </template>
@@ -44,7 +57,7 @@
                 </li>
 
             </ul>
-            <a-button type="outline">
+            <a-button type="outline" @click="handleEditClick">
                 <template #icon>
                     <icon-edit />
                 </template>
@@ -60,11 +73,20 @@
 </template>
 
 <script setup lang='ts'>
-const link = {
-    QQ: '#',
-    WeChat: '#',
-    GitHub: "https://github.com/Ye-YiChen/MyBlog"
+import type { User } from '@/type/User';
+import { defineProps ,defineEmits } from 'vue';
+interface Props {
+    user: User;
+    QQlink: string;
 }
+
+const { user, QQlink } = defineProps<Props>();
+const emit = defineEmits(['editClick']);
+
+function handleEditClick() {
+    emit('editClick');
+}
+
 
 </script>
 
@@ -85,9 +107,11 @@ const link = {
     justify-content: space-between;
     height: 100%;
     margin-left: 2vw;
+
     .no-margin {
         margin: 0;
     }
+
     .icon-box {
         display: flex;
         justify-content: space-around;

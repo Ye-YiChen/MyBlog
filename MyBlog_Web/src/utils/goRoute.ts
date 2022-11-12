@@ -1,11 +1,17 @@
 import r from '@/router'
+import { useUserStore } from '@/stores/user';
+import type { LocationQueryRaw, RouteParamsRaw } from 'vue-router';
 /**
  * 跳转到指定页面
  * @param path 跳转路径或者路径名称
  * @param params 跳转params参数 url形如：/path/:id
  * @param query 跳转query参数 url形如：/path?id=1
  */
- function goRoute(path:string, params = {}, query = {}) {
+function goRoute(path: string, params: RouteParamsRaw = {}, query: LocationQueryRaw = {}) {
+    const { user } = useUserStore();
+    if (JSON.stringify(params) === '{}') {
+        params.user_id = user.user_id;
+    }
     if (!path) {
         console.warn("path can't be empty!");
         return;
@@ -28,4 +34,12 @@ import r from '@/router'
     }
 }
 
-export { goRoute }
+function goBack() {
+    r.go(-1);
+}
+
+function goLogin() {
+    goRoute('Login', {});
+}
+
+export { goRoute, goBack, goLogin };

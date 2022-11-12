@@ -7,7 +7,7 @@ import { User } from "src/model/User";
 function queryUserLogin(username: string) {
     return new Promise<User[]>((resolve, reject) => {
         username = db.escape(username);
-        const sql = `select user_id, password from user where username=${username} and deleted_at is null `;
+        const sql = `select user_id, password, avatar, description, email, QQ, wechat, github, donation, created_at from user where username=${username} and deleted_at is null `;
         db.query(sql, (err: Error, result: User[]) => {
             if (err) {
                 reject(err);
@@ -27,7 +27,7 @@ function queryUserLogin(username: string) {
 function queryUserInfo(user_id: number) {
     return new Promise<User[]>((resolve, reject) => {
         user_id = parseInt(db.escape(user_id));
-        const sql = `SELECT username, avatar, email, QQ, wechat, github, donation FROM user WHERE user_id=${user_id} and deleted_at is null `;
+        const sql = `SELECT username, description, avatar, email, QQ, wechat, github, donation, created_at FROM user WHERE user_id=${user_id} and deleted_at is null `;
         db.query(sql, (err: Error, result: User[]) => {
             if (err) {
                 reject(err);

@@ -1,29 +1,29 @@
 <template>
     <a-layout class="layout-setting">
         <a-layout-header>
-            <Header />
+            <Header :user="user" :QQlink="QQlink" @editClick="goSelfEdit" />
         </a-layout-header>
         <a-layout class="bottom-container">
             <a-layout-sider class="left-sider" collapsible :step="10">
-                <a-menu :default-open-keys="['0']" :default-selected-keys="['0_0']" breakpoint="xl"
-                    auto-scroll-into-view @menu-item-click="onClick">
-                    <a-sub-menu key="0">
+                <a-menu :default-open-keys="['Biography']" :default-selected-keys="['Biography_List']" breakpoint="xl"
+                    v-model:selected-keys="openKeys" auto-scroll-into-view @menu-item-click="onClick">
+                    <a-sub-menu key="Biography">
                         <template #icon>
                             <icon-user></icon-user>
                         </template>
                         <template #title>个人中心</template>
-                        <a-menu-item key="0_0">个人简介</a-menu-item>
-                        <a-menu-item key="0_1">修改信息</a-menu-item>
+                        <a-menu-item key="Biography_List">个人简介</a-menu-item>
+                        <a-menu-item key="Biography_Edit">修改信息</a-menu-item>
                         <!-- <a-menu-item key="0_2">Menu 3</a-menu-item> -->
                         <!-- <a-menu-item key="0_3">Menu 4</a-menu-item> -->
                     </a-sub-menu>
-                    <a-sub-menu key="1">
+                    <a-sub-menu key="Category">
                         <template #icon>
                             <icon-list />
                         </template>
                         <template #title>分类中心</template>
-                        <a-menu-item key="1_0">分类列表</a-menu-item>
-                        <a-menu-item key="1_1">添加分类</a-menu-item>
+                        <a-menu-item key="Category_List">分类列表</a-menu-item>
+                        <a-menu-item key="Category_Add">添加分类</a-menu-item>
                         <!-- <a-menu-item key="1_2">Menu 3</a-menu-item> -->
                     </a-sub-menu>
                     <a-sub-menu key="2">
@@ -31,8 +31,8 @@
                             <icon-file />
                         </template>
                         <template #title>文章中心</template>
-                        <a-menu-item key="2_0">文章列表</a-menu-item>
-                        <a-menu-item key="2_1">添加文章</a-menu-item>
+                        <a-menu-item key="Articles_List">文章列表</a-menu-item>
+                        <a-menu-item key="Articles_Add">添加文章</a-menu-item>
 
                     </a-sub-menu>
                     <a-sub-menu key="3">
@@ -40,8 +40,8 @@
                             <icon-star />
                         </template>
                         <template #title>数据中心</template>
-                        <a-menu-item key="3_0">Menu 1</a-menu-item>
-                        <a-menu-item key="3_1">Menu 2</a-menu-item>
+                        <a-menu-item key="3_List">Menu 1</a-menu-item>
+                        <a-menu-item key="3_Add">Menu 2</a-menu-item>
                     </a-sub-menu>
                 </a-menu>
             </a-layout-sider>
@@ -55,30 +55,23 @@
 
 <script setup lang='ts'>
 import Header from '@/components/Setting/Header/Header.vue';
-import { goRoute } from '@/utils/route'
+import { reactive, watch } from 'vue';
+import { goRoute } from '@/utils/goRoute'
+import { useUserStore } from '@/stores/user';
+const { user, QQlink } = useUserStore();
+// 动态获取当前路由名称
+const openKeys = reactive(['Biography_List']);
+// 这里的路由跳转速度很慢，考虑可能是suspend标签的原因
+function onClick(key: string) {
+    openKeys[0] = key;
+    const routeName = "Set" + key.split('_').join('');
+    goRoute(routeName, { user_id: 1 })
+}
 
-
-const onClick = (() => {
-    // 尝试闭包小技巧 私有化navs变量 **可能会引起内存泄漏**
-    const links = {
-        '0_0': 'SetBiographyList',
-        '0_1': 'SetBiographyEdit',
-        '1_0': 'SetCategoryList',
-        '1_1': 'SetCategoryAdd',
-        '2_0': 'SetArticlesList',
-        '2_1': 'SetArticlesAdd',
-    }
-    const navs: Map<string, string> = new Map(Object.entries(links))
-    /**
-     * @description: setting页面的导航栏点击事件
-     * @param key 点击的菜单项的key
-     */
-    return (key: string) => {
-        const routeName = navs.get(key)!;
-        goRoute(routeName, { user_id: 1 })
-    }
-})();
-
+function goSelfEdit() {
+    openKeys[0] = 'Biography_Edit';
+    goRoute('SetBiographyEdit', { user_id: 1 })
+}
 
 
 

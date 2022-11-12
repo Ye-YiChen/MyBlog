@@ -1,16 +1,17 @@
 <template>
     <div class="home">
         <Home>
-            <ContentBox>
-                <CustomPicBox :picture="picture" />
-                <a-divider orientation="center" class="mid-divider" margin="50px">最新文章</a-divider>
-                <ArticleBox :article="article_1" />
-                <ArticleBox :article="article_2" />
-                <ArticleBox :article="article_3" :divider="false" />
+            <Suspense>
+                <ContentBox>
+                    <CustomPicBox :picture="picture" />
+                    <a-divider orientation="center" class="mid-divider" margin="50px">最新文章</a-divider>
+                    <ArticleBox :article="article_1" />
+                    <ArticleBox :article="article_2" />
+                    <ArticleBox :article="article_3" :divider="false" />
+                    <a-pagination :total="10000" size="large" class="pagination" />
+                </ContentBox>
+            </Suspense>
 
-                <a-pagination :total="10000" size="large" class="pagination" />
-
-            </ContentBox>
             <ContentBox>
                 <a-divider orientation="center" class="mid-divider" margin="50px">旅行日记</a-divider>
                 <a-carousel :auto-play="true" class="carousel-chart round-box" show-arrow="never" direction="vertical"
@@ -24,6 +25,7 @@
             </ContentBox>
         </Home>
     </div>
+
 </template>
 
 <script setup lang='ts'>
@@ -32,7 +34,12 @@ import CustomPicBox from '../../components/Main/CustomPicBox/CustomPicBox.vue'
 import ArticleBox from '../../components/Main/ArticleBox/ArticleBox.vue'
 import RecommendBox from '../../components/Main/RecommendBox/RecommendBox.vue'
 import ContentBox from '@/components/Main/ContentBox/ContentBox.vue';
-
+import { getArticlesByUserId } from '@/api/Article';
+import { useRoute } from 'vue-router';
+const route = useRoute();
+const { user_id } = route.params;
+const articleList = await getArticlesByUserId(parseInt(user_id as string), 1, 3);
+console.log(articleList)
 const picture = {
     src: '/big-pic.jpg',
     title: 'this is a title',

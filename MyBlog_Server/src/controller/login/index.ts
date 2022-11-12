@@ -8,14 +8,14 @@ import { genToken } from "src/token";
 
 async function login(req: Request, res: Response) {
     const { username, password } = req.body as User;
-    let password_h, user_id;
+    let userInfo: User;
     try {
-        [{ user_id, password: password_h }] = await queryUserLogin(username);
+        [userInfo] = await queryUserLogin(username);
     } catch {
         res.json(ErrorResult('user not found'));
         return;
     }
-    if (!bcryptjs.compareSync(password, password_h)) {
+    if (!bcryptjs.compareSync(password, userInfo.password)) {
         // 密码错误
         res.json(ErrorResult('password error'));
         return;
@@ -24,13 +24,13 @@ async function login(req: Request, res: Response) {
     // 生成token
     let token: string;
     try {
-        token = await genToken({ user_id });
+        token = await genToken({ user_id: userInfo.user_id });
     } catch (error) {
         res.json(ErrorResult('token error'));
         return;
     }
 
-    res.json(SuccessResult({ user_id, username, token }));
+    res.json(SuccessResult({ ...userInfo, token }));
 }
 
 

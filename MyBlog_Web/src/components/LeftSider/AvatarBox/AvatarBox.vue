@@ -1,19 +1,17 @@
 <template>
   <a-space class="avatar" direction="vertical">
     <!-- 头像 -->
-    <a-avatar trigger-type="mask" :size="100">
-      <img alt="avatar"
-        src="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp" />
-
-      <template #trigger-icon>
+    <a-avatar trigger-type="mask" :size="100" @click="handleAvatarClick">
+      <img alt="avatar" :src="user.avatar" />
+      <template #trigger-icon v-if="user.token">
         <IconEdit size="32" />
       </template>
     </a-avatar>
     <a-typography-title class="text-center" :heading="6">
-      YeYiChen
+      {{user.username}}
     </a-typography-title>
     <a-typography-text type="secondary" class="small-text">
-      YeYiChen's blog
+      {{user.description}}
     </a-typography-text>
     <ul class="icon-box">
       <li>
@@ -28,12 +26,23 @@
 
       </li>
       <li>
-        <a-tooltip content="WeChat" position="bottom">
+        <a-tooltip position="bottom">
           <a-link type="text" :href="link.WeChat" class="href-link" target="_blank">
             <template #icon>
               <icon-wechat size="16" />
             </template>
           </a-link>
+          <template #content>
+            <div class="img-box" :style="{
+              width: '100px',
+              height: '100px',
+            }">
+              <img :src="user.wechat" :style="{
+                width: '100%',
+                height: '100%',
+              }" />
+            </div>
+          </template>
 
         </a-tooltip>
 
@@ -55,10 +64,24 @@
 </template>
 
 <script setup lang='ts'>
+import type { User } from '@/type/User';
+import {defineEmits} from 'vue';
+
+const emits = defineEmits(['avatarClick']);
+interface Props {
+  user: User;
+  QQlink: string
+}
+const { user, QQlink } = defineProps<Props>();
+// console.log(QQlink);
 const link = {
-  QQ: '#',
-  WeChat: '#',
-  GitHub: "https://github.com/Ye-YiChen/MyBlog"
+  QQ: QQlink ?? '',
+  WeChat: user.wechat ?? '',
+  GitHub: user.github ?? "https://github.com/Ye-YiChen/MyBlog"
+}
+
+function handleAvatarClick(){
+  emits('avatarClick');
 }
 </script>
 

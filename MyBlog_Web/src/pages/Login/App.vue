@@ -11,7 +11,7 @@
                         <h5>密码登录</h5>
                     </a-menu-item>
                 </a-menu>
-                <a-form :model="form" :layout="layout">
+                <a-form :model="form" layout="vertical">
                     <a-form-item field="name" required hide-asterisk>
                         <a-input v-model="form.name" placeholder="please enter your username..." size="large">
                             <template #prefix>
@@ -49,7 +49,12 @@ import Login from '@/layouts/Login.vue';
 import { ref, reactive, computed } from 'vue';
 import { UserLogin } from '@/api/Login';
 import { Message } from '@arco-design/web-vue';
-const layout = ref<"horizontal" | "vertical" | "inline" | undefined>('vertical')
+import { useUserStore } from '@/stores/user'
+import {  goRoute } from '@/utils/goRoute';
+const userStore = useUserStore();
+// 这里开启了实验性的setup语法，所以可以直接解构赋值
+const {  setUser } = userStore;
+
 const form = reactive({
     name: '',
     password: '',
@@ -68,7 +73,9 @@ async function submit() {
         return;
     }
     const { data } = await UserLogin(form.name, form.password);
-    console.log(data)
+    setUser(data);
+    window.localStorage.setItem('token', data.token);
+    goRoute('Home');
 }
 </script>
 
@@ -125,6 +132,7 @@ h4 {
             border-bottom: 1px solid #e8e8e8;
             margin-bottom: 30px;
         }
+
         // 修改 acro-design的input的样式
         &:deep(.arco-input-wrapper) {
             background-color: rgba(255, 255, 255, 0.5);

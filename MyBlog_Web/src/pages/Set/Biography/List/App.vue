@@ -1,13 +1,12 @@
 <template>
     <ContentBox class="blog-box" title="个人简介">
-        <a-descriptions :data="data" size="large" bordered :column="2">
+        <a-descriptions  size="large" bordered :column="2">
             <a-descriptions-item v-for="item of data" :label="item.label">
                 <div v-if="item.type === 'text'">
                     <span class="big-text">{{ item.value }}</span>
                 </div>
                 <div v-else-if="item.type === 'image'">
-                    <a-image width="100" height="100"
-                        :src="item.label" />
+                    <a-image width="100" height="100" :src="item.value" />
                 </div>
 
                 <div v-else-if="item.type === 'link'">
@@ -20,60 +19,61 @@
 
 <script setup lang='ts'>
 import ContentBox from '@/components/Main/ContentBox/ContentBox.vue';
+import { useUserStore } from '@/stores/user';
+import { computed } from 'vue';
+const { user } = useUserStore();
+console.log(user)
+const data = computed(() => {
+    return [
+        {
+            label: '昵称',
+            value: user.username,
+            type: 'text',
+        },
+        {
+            label: '头像',
+            value: user.avatar,
+            type: 'image'
+        },
+        {
+            label: '个性签名',
+            value: user.description,
+            type: 'text',
+        },
+        {
+            label: '邮箱',
+            value: user.email,
+            type: 'text',
+        },
+        {
+            label: 'QQ',
+            value: user.QQ,
+            type: 'text',
+        },
+        {
+            label: 'wechat',
+            value: user.wechat,
+            type: 'image',
+        },
+        {
+            label: 'Github',
+            value: user.github,
+            type: 'link',
+        },
 
-const data = [
-    {
-        label: '昵称',
-        value: 'Socrates',
-        type: 'text',
-    },
-    {
-        label: '头像',
-        value: 'https://avatars.githubusercontent.com/u/25154432?v=4',
-        type: 'image'
-    },
-    // {
-    //     label: '联系方式',
-    //     value: '123-1234-1234',
-    //     type: 'text',
-    // },
-    {
-        label: '个性签名',
-        value: "YeYiChen's blog",
-        type: 'text',
-    },
-    {
-        label: '邮箱',
-        value: 'xuph@hdu.edu.cn',
-        type: 'text',
-    },
-    {
-        label: 'QQ',
-        value: '1980848702',
-        type: 'text',
-    },
-    {
-        label: 'wechat',
-        value: '',
-        type: 'image',
-    },
-    {
-        label: 'Github',
-        value: 'https://github.com/Ye-YiChen/MyBlog',
-        type: 'link',
-    },
-
-    {
-        label: '赞赏码',
-        value: '',
-        type: 'image',
-    },
-    {
-        label: '注册日期',
-        value: (new Date()).toLocaleString(),
-        type: 'text'
-    }
-];
+        {
+            label: '赞赏码',
+            value: user.donation,
+            type: 'image',
+        },
+        {
+            label: '注册日期',
+            value: new Date(user.created_at!).toLocaleString(),
+            type: 'text'
+        }
+    ]
+})
+// console.log(data)
 </script>
 
 <style scoped lang='less'>
