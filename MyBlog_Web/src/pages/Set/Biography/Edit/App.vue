@@ -131,20 +131,19 @@ async function formSubmit() {
         formData.github = fileList.github[0].file ? await uploadImg(fileList.github[0].file) : data[6].value;
         formData.donation = fileList.donation[0].file ? await uploadImg(fileList.donation[0].file) : data[7].value;
     } catch (error: any) {
+        console.log(error.message);
         Notification.error({
-            title: '图片上传失败',
-            content: error,
-            duration: 3,
+            title: '图片上传失败1',
+            content: error.message,
         });
         return;
     }
-    console.log(formData)
     await putUserInfo(formData);
     Notification.success({
         title: '修改成功',
         content: '个人信息修改成功！',
     });
-    // goRoute('SetBiographyList');
+    goRoute('SetBiographyList');
     setUser(formData);
 }
 </script>
