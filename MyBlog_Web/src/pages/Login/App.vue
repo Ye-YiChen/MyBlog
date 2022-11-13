@@ -48,12 +48,12 @@
 import Login from '@/layouts/Login.vue';
 import { ref, reactive, computed } from 'vue';
 import { UserLogin } from '@/api/Login';
-import { Message } from '@arco-design/web-vue';
+import { Message, Notification } from '@arco-design/web-vue';
 import { useUserStore } from '@/stores/user'
-import {  goRoute } from '@/utils/goRoute';
+import { goRoute } from '@/utils/goRoute';
 const userStore = useUserStore();
 // 这里开启了实验性的setup语法，所以可以直接解构赋值
-const {  setUser } = userStore;
+const { setUser } = userStore;
 
 const form = reactive({
     name: '',
@@ -76,6 +76,10 @@ async function submit() {
     setUser(data);
     window.localStorage.setItem('token', data.token);
     goRoute('Home');
+    Notification.success({
+        title: '登录成功',
+        content: '欢迎回来！'
+    });
 }
 </script>
 
@@ -120,7 +124,7 @@ h4 {
     .login-box {
         box-sizing: border-box;
         margin-top: 5vh;
-        min-width: 25vw;
+        min-width: 400px;
         max-width: 30vw;
         background-color: rgba(255, 255, 255, 0.8);
         padding: 24px 32px 8px;

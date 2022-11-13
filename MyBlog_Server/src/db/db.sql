@@ -43,11 +43,11 @@ create table article_category
     name                varchar(255)      not null,
     description         text              null,
     tags                varchar(255)      null,
-    view                int     default 0 not null comment '所有文章的浏览量之和',
+    views               int     default 0 not null comment '所有文章的浏览量之和',
     custom              tinyint default 0 not null comment '是否被用户设置为首页展示
 0 => 不展示(默认)
 else => 展示',
-    `like`              int     default 0 not null comment '所有文章的点赞量',
+    likes               int     default 0 not null comment '所有文章的点赞量',
     user_id             int               not null,
     created_at          datetime          not null,
     updated_at          datetime          null,
@@ -67,8 +67,8 @@ create table article
     title               varchar(255)      not null,
     content             text              null comment '64kb ≈ 32k中文字',
     pictures            varchar(255)      null,
-    view                int     default 0 not null comment '浏览量',
-    `like`              int     default 0 not null comment '点赞数量',
+    views               int     default 0 not null comment '浏览量',
+    likes               int     default 0 not null comment '点赞数量',
     tags                varchar(255)      null comment '文章标签',
     custom              tinyint default 0 not null comment '是否被用户设置为首页展示
 0 => 不展示(默认)

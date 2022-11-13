@@ -1,7 +1,7 @@
 import express from 'express';
-import { getUserInfo, putUserInfo, getUserByToken } from 'src/controller/user';
-import { getArticlesByUserId, putArticle } from 'src/controller/article';
-import { getArticleCategoriesByUserId, putArticleCategory } from 'src/controller/articleCategory';
+import { getUserInfo, putUserInfo, getUserByToken, getTotalInUser } from 'src/controller/user';
+import { getArticlesByUserId, postArticle } from 'src/controller/article';
+import { getArticleCategoriesByUserId, postArticleCategory } from 'src/controller/articleCategory';
 
 const userRouter = express.Router();
 
@@ -9,9 +9,10 @@ const userRouter = express.Router();
 userRouter.get('/:user_id/info', getUserInfo);
 userRouter.get('/:user_id/articles', getArticlesByUserId);
 userRouter.get('/:user_id/articleCategories', getArticleCategoriesByUserId);
+userRouter.get('/:user_id/count', getTotalInUser);
 userRouter.put('/:user_id/info', putUserInfo);
-userRouter.put('/:user_id/articles', putArticle);
-userRouter.put('/:user_id/articleCategories', putArticleCategory);
+userRouter.post('/:user_id/article', postArticle);
+userRouter.post('/:user_id/articleCategory', postArticleCategory);
 
 
 userRouter.get('/token', getUserByToken);

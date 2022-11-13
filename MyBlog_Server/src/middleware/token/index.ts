@@ -20,7 +20,6 @@ async function authToken(req: Request, res: Response, next: NextFunction) {
         const [_, token] = headers.split(' ');
         const {user_id} = await verifyToken(token) as JwtPayload;
         // 这里莫名其妙拿不到params，只能从url中拿
-        console.log(req.url)
         const p_user_id = parseInt(req.url.split('/')[1]);
         // 如果请求的token中的user_id和请求的user_id不一致，说明token不是该用户的
         console.log(user_id)

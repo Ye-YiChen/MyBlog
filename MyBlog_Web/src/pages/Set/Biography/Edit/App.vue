@@ -102,12 +102,6 @@ const data = reactive(
             value: user.donation,
             type: 'image',
         },
-        {
-            label: '注册日期',
-            key: 'created_at',
-            value: new Date(user.created_at!).toLocaleString(),
-            type: 'text'
-        }
     ]
 )
 

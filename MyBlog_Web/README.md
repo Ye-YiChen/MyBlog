@@ -9,4 +9,4 @@
 [markdown文档](https://imzbf.github.io/md-editor-v3/docs) 
 [markdown参考文章](https://juejin.cn/post/6991731267909713928#heading-11)
 
-[图床接口1:雷电图床(侵删)](/MyBlog_Web/src/api//img/index.ts)
+[图床接口(侵删)](/MyBlog_Web/src/api//img/index.ts)

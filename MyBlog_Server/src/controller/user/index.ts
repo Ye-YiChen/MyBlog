@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { JwtPayload } from "jsonwebtoken";
-import { queryUserInfo, updateUserInfo } from "src/db/user";
+import { countArticleInUser, queryUserInfo, updateUserInfo } from "src/db/user";
 import { SuccessResult, ErrorResult } from "src/model/Result";
 import { User } from "src/model/User";
 import { verifyToken } from "src/token";
@@ -28,11 +28,12 @@ async function getUserByToken(req: Request, res: Response) {
     const [_, token] = headers.split(' ');
     const { user_id } = await verifyToken(token) as JwtPayload;
     try {
+        console.log(user_id)
         const [userInfo] = await queryUserInfo(parseInt(user_id));
-        res.json(SuccessResult({...userInfo,user_id}));
+        res.json(SuccessResult({ ...userInfo, user_id }));
         return;
     } catch {
-        res.json(ErrorResult('user_id error'));
+        res.json(ErrorResult('token query error'));
         return;
     }
 }
@@ -49,6 +50,15 @@ async function putUserInfo(req: Request, res: Response) {
     res.json(SuccessResult('ok'));
 }
 
+async function getTotalInUser(req: Request, res: Response) {
+    const { user_id } = req.params;
+    try {
+        const count = await countArticleInUser(parseInt(user_id))
+        res.json(SuccessResult({ count, user_id }));
+    } catch (error) {
+        res.json(ErrorResult('article_category_id error'));
+        return;
+    }
+}
 
-
-export { getUserInfo, putUserInfo, getUserByToken }
+export { getUserInfo, putUserInfo, getUserByToken,getTotalInUser }

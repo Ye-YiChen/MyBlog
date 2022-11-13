@@ -55,22 +55,23 @@
 
 <script setup lang='ts'>
 import Header from '@/components/Setting/Header/Header.vue';
-import { reactive, watch } from 'vue';
+import { reactive } from 'vue';
 import { goRoute } from '@/utils/goRoute'
 import { useUserStore } from '@/stores/user';
 const { user, QQlink } = useUserStore();
+
 // 动态获取当前路由名称
 const openKeys = reactive(['Biography_List']);
 // 这里的路由跳转速度很慢，考虑可能是suspend标签的原因
 function onClick(key: string) {
     openKeys[0] = key;
     const routeName = "Set" + key.split('_').join('');
-    goRoute(routeName, { user_id: 1 })
+    goRoute(routeName,)
 }
 
 function goSelfEdit() {
     openKeys[0] = 'Biography_Edit';
-    goRoute('SetBiographyEdit', { user_id: 1 })
+    goRoute('SetBiographyEdit',)
 }
 
 

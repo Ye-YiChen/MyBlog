@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle, removeArticle } from "src/db/article";
+import { queryArticleCategoryInfo } from "src/db/articleCategory";
 import { Article } from "src/model/Article";
-// import { Article } from "src/model/Article";
+import { ArticleCategory } from "src/model/ArticleCategory";
 import { SuccessResult, ErrorResult } from "src/model/Result";
 
 /**
@@ -12,11 +13,11 @@ import { SuccessResult, ErrorResult } from "src/model/Result";
 async function getArticlesByUserId(req: Request, res: Response) {
     const { user_id } = req.params;
     const { page, pageSize } = req.query;
-    if(!user_id){
+    if (!user_id) {
         res.json(ErrorResult('user_id empty error'));
         return;
     }
-    if(!(page && pageSize)){
+    if (!(page && pageSize)) {
         res.json(ErrorResult('page or pageSize empty error'));
         return;
     }
@@ -66,7 +67,9 @@ async function getArticleInfo(req: Request, res: Response) {
     }
 }
 
-async function putArticle(req: Request, res: Response) {
+
+
+async function postArticle(req: Request, res: Response) {
     const { user_id } = req.params;
     const { article_category_id } = req.body;
     if (!user_id) {
@@ -103,4 +106,4 @@ async function deleteArticle(req: Request, res: Response) {
 
 
 
-export { getArticlesByUserId, getArticlesByCategoryId, getArticleInfo, putArticle, deleteArticle };
+export { getArticlesByUserId, getArticlesByCategoryId, getArticleInfo, postArticle, deleteArticle  };

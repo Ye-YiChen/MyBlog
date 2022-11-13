@@ -1,6 +1,7 @@
 import { request } from "@/api";
-
-function getArticlesByUserId(user_id: number,page: number,pageSize: number) {
+import type { Article } from "@/type/Article";
+import { useUserStore } from "@/stores/user";
+function getArticlesByUserId(user_id: number, page: number, pageSize: number) {
     return request({
         url: `/user/${user_id}/articles`,
         method: "get",
@@ -11,4 +12,31 @@ function getArticlesByUserId(user_id: number,page: number,pageSize: number) {
     });
 }
 
-export { getArticlesByUserId };
+function postArticle(data: Article) {
+    const { user } = useUserStore();
+    return request({
+        url: `user/${user.user_id}/article`,
+        method: "post",
+        data
+    });
+}
+
+function getArticlesByUserIdWithCategory(user_id: number, page: number, pageSize: number) {
+    return request({
+        url: `/set/${user_id}/article/list`,
+        method: "get",
+        params: {
+            page,
+            pageSize
+        }
+    });
+}
+
+function deleteArticleByArticleId(article_id: number) {
+    return request({
+        url: `article/${article_id}`,
+        method: "delete"
+    });
+}
+
+export { getArticlesByUserId, postArticle ,getArticlesByUserIdWithCategory,deleteArticleByArticleId};

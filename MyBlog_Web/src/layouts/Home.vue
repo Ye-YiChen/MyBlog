@@ -65,7 +65,7 @@ function goHome() {
 }
 
 function goLatestArticle() {
-    goRoute('Article', { article_id: 1 });
+    goRoute('Article',);
 }
 
 function handleThank(title: string = '感谢您的支持', content: string = '您的支持是我最大的动力') {

@@ -11,6 +11,7 @@ async function login(req: Request, res: Response) {
     let userInfo: User;
     try {
         [userInfo] = await queryUserLogin(username);
+        console.log(userInfo,111);
     } catch {
         res.json(ErrorResult('user not found'));
         return;

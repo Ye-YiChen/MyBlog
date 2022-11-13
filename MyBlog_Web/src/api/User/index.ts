@@ -14,4 +14,11 @@ function putUserInfo(data: User): Promise<User> {
     });
 }
 
-export { getUserInfoByToken, putUserInfo };
+function getArticleCountInUser(user_id: number) {
+    return request({
+        url: `/user/${user_id}/count`,
+        method: 'get',
+    });
+}
+
+export { getUserInfoByToken, putUserInfo,getArticleCountInUser };

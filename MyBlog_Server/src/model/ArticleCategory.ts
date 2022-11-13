@@ -3,8 +3,8 @@ interface ArticleCategory{
     name: string;
     description: string;
     tags: string;
-    view: number; // 浏览量
-    like: number; // 点赞量
+    views: number; // 浏览量
+    likes: number; // 点赞量
     custom: number; // 0: 默认不展示, 其他：自定义首页展示
     user_id: number;
     created_at: string;

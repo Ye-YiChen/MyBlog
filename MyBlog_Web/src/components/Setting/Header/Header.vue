@@ -65,23 +65,28 @@
             </a-button>
         </div>
         <a-space size="large" class="article-info">
-            <a-statistic title="Articles" :value="125670" show-group-separator :value-from="0" start animation />
-            <a-statistic extra="Watches" :value="125670 * 10" show-group-separator :value-from="0" start animation />
-            <a-statistic title="Likes" :value="125670" show-group-separator :value-from="0" start animation />
+            <a-statistic title="Articles" :value="infoCounts.articles" show-group-separator :value-from="0" start animation />
+            <a-statistic extra="Watches" :value="infoCounts.views" show-group-separator :value-from="0" start animation />
+            <a-statistic title="Likes" :value="infoCounts.likes" show-group-separator :value-from="0" start animation />
         </a-space>
     </div>
 </template>
 
 <script setup lang='ts'>
 import type { User } from '@/type/User';
-import { defineProps ,defineEmits } from 'vue';
+import { defineProps ,defineEmits,inject } from 'vue';
+const emit = defineEmits(['editClick']);
 interface Props {
     user: User;
     QQlink: string;
 }
-
+interface InfoCounts {
+    views: number;
+    likes: number;
+    articles: number;
+}
 const { user, QQlink } = defineProps<Props>();
-const emit = defineEmits(['editClick']);
+const infoCounts = inject<InfoCounts>('infoCounts')!;
 
 function handleEditClick() {
     emit('editClick');

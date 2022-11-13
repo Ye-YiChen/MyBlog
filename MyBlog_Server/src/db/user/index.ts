@@ -15,7 +15,6 @@ function queryUserLogin(username: string) {
                 reject(err);
                 return;
             }
-            console.log(result);
             resolve(result);
         });
     });
@@ -51,7 +50,7 @@ function updateUserInfo(user_id: number, user: User) {
         user_id = parseInt(db.escape(user_id));
         // 如果有值就更新，没有值就不更新
         const { username, avatar, email, QQ, wechat, github, donation,description } = user;
-        const sql = `UPDATE user SET username=${username ? db.escape(username) : 'username'}, avatar=${avatar ? db.escape(avatar) : 'avatar'}, email=${email ? db.escape(email) : 'email'}, QQ=${QQ ? db.escape(QQ) : 'QQ'}, wechat=${wechat ? db.escape(wechat) : 'wechat'}, github=${github ? db.escape(github) : 'github'}, donation=${donation ? db.escape(donation) : 'donation'} , description=${description ? db.escape(description): 'description'} WHERE user_id=${user_id} and deleted_at is null `;
+        const sql = `UPDATE user SET username=${username ? db.escape(username) : 'username'}, avatar=${avatar ? db.escape(avatar) : 'avatar'}, email=${email ? db.escape(email) : 'email'}, QQ=${QQ ? db.escape(QQ) : 'QQ'}, wechat=${wechat ? db.escape(wechat) : 'wechat'}, github=${github ? db.escape(github) : 'github'}, donation=${donation ? db.escape(donation) : 'donation'} , description=${description ? db.escape(description): 'description'}, updated_at = now() WHERE user_id=${user_id} and deleted_at is null `;
         console.log(sql);
         db.query(sql, (err: Error, result: any) => {
             if (err) {
@@ -63,5 +62,19 @@ function updateUserInfo(user_id: number, user: User) {
     });
 }
 
+function countArticleInUser(user_id: number){
+    return new Promise<any>((resolve, reject) => {
+        user_id = parseInt(db.escape(user_id));
+        const sql = `SELECT count(*) AS count FROM article WHERE user_id=${user_id} AND deleted_at is NULL `;
+        db.query(sql, (err: Error, result: any) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result[0].count);
+        });
+    });
+}
 
-export { queryUserLogin, queryUserInfo, updateUserInfo };
+
+export { queryUserLogin, queryUserInfo, updateUserInfo,countArticleInUser};

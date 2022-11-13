@@ -1,5 +1,5 @@
 import db from '../index';
-import { Article } from "src/model/Article";
+import { Article, ArticleCustom } from "src/model/Article";
 
 /**
  * 查询指定用户的文章，按照时间倒序排列
@@ -10,8 +10,9 @@ import { Article } from "src/model/Article";
 function queryArticlesByUserId(user_id: number, page: number, pageSize: number) {
     return new Promise<Article[]>((resolve, reject) => {
         user_id = parseInt(db.escape(user_id));
-        // deleted_at 软删除
-        const sql = `select article_id, title, content, pictures, user_id, created_at from article where user_id=${user_id} and deleted_at is null order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
+        // 按照 article_category_id 链表article 和 article_category查询
+        const sql = `select article_id, title, content, pictures, user_id, views, likes, tags, article_category_id, created_at from article where user_id=${user_id} and deleted_at is null order by created_at desc limit ${(page - 1) * pageSize}, ${pageSize}`;
+        console.log(sql)
         db.query(sql, (err: Error, result: Article[]) => {
             if (err) {
                 reject(err);
@@ -67,7 +68,7 @@ function addArticle(user_id: number, article: Article) {
             reject('article_category_id empty error');
             return;
         }
-        const sql = `insert into article (user_id, article_category_id, title, content, pictures, custom, tags, created_at) values (${user_id}, ${article_category_id}, '${title ?? ""}', '${content ?? ""}', '${pictures ?? ""}',${custom ?? ""},'${tags ?? ""}',now())`;
+        const sql = `insert into article (user_id, article_category_id, title, content, pictures, custom, tags, created_at) values (${user_id}, ${article_category_id}, '${title ?? ""}', '${content ?? ""}', '${pictures ?? ""}',${custom ?? ArticleCustom.Default},'${tags ?? ""}',now())`;
         db.query(sql, (err: Error, result: any) => {
             if (err) {
                 console.log(err)

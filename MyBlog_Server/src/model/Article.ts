@@ -1,10 +1,11 @@
 interface Article {
+    [key: string]: any;
     article_id: number;
     title: string;
     content: string;
     pictures: string;
-    view: number; // 浏览量
-    like: number; // 点赞量
+    views: number; // 浏览量
+    likes: number; // 点赞量
     tags: string;
     custom: number; // 0: 默认不展示, 其他：自定义首页展示
     article_category_id: number;
@@ -13,9 +14,9 @@ interface Article {
     deleted_at: string;
 }
 
-enum ArticleCategoryCustom {
+enum ArticleCustom {
     Default = 0,
     Custom = 1
 }
 
-export { Article, ArticleCategoryCustom };
+export { Article, ArticleCustom };
