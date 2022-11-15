@@ -1,3 +1,5 @@
+import type { ArticleCategory } from "./ArticleCategory";
+
 interface Article {
     // [key: string]: any;
     article_id?: number;
@@ -9,6 +11,7 @@ interface Article {
     tags?: string;
     custom?: number; // 0: 默认不展示, 其他：自定义首页展示
     article_category_id?: number;
+    article_category: ArticleCategory;
     created_at?: string;
     updated_at?: string;
     deleted_at?: string;

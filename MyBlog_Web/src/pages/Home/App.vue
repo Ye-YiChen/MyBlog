@@ -5,6 +5,8 @@
                 <ContentBox>
                     <CustomPicBox :picture="picture" />
                     <a-divider orientation="center" class="mid-divider" margin="50px">最新文章</a-divider>
+                    <ArticleBox :article="item" v-for="item, index in articleListShow" :key="item.article_id"
+                        :divider="index === articleListShow.length" />
                     <ArticleBox :article="article_1" />
                     <ArticleBox :article="article_2" />
                     <ArticleBox :article="article_3" :divider="false" />
@@ -34,12 +36,25 @@ import CustomPicBox from '../../components/Main/CustomPicBox/CustomPicBox.vue'
 import ArticleBox from '../../components/Main/ArticleBox/ArticleBox.vue'
 import RecommendBox from '../../components/Main/RecommendBox/RecommendBox.vue'
 import ContentBox from '@/components/Main/ContentBox/ContentBox.vue';
-import { getArticlesByUserId } from '@/api/Article';
+import { getArticlesByUserIdWithCategory } from '@/api/Article';
 import { useRoute } from 'vue-router';
+import { computed, reactive } from 'vue';
+import type { Article } from '@/type/Article';
 const route = useRoute();
 const { user_id } = route.params;
-const articleList = await getArticlesByUserId(parseInt(user_id as string), 1, 3);
+const { data: articleList } = await getArticlesByUserIdWithCategory(parseInt(user_id as string), 1, 3);
 console.log(articleList)
+const articleListShow = computed(() => {
+    return articleList.map((article: Article) => {
+        return {
+            ...article,
+            tags: article.tags ? JSON.parse(article.tags) : new Array(),
+            pictures: article.pictures ? JSON.parse(article.pictures) : new Array(),
+            category_name: article.article_category.name,
+            created_at: (new Date(article.created_at!)).toLocaleString(),
+        }
+    })
+})
 const picture = {
     src: '/big-pic.jpg',
     title: 'this is a title',
@@ -47,24 +62,24 @@ const picture = {
 }
 const article_1 = {
     title: '这是一个标题',
-    description: '这是一个表示'.repeat(100),
+    content: '这是一个表示'.repeat(100),
     pictures: [{ src: '/big-pic.jpg', }],
-    category: '心情随笔',
-    date: new Date()
+    category_name: '心情随笔',
+    created_at: (new Date()).toLocaleString(),
 }
 const article_2 = {
     title: '这是一个标题',
-    description: '这是一个表示'.repeat(100),
+    content: '这是一个表示'.repeat(100),
     pictures: [{ src: '/big-pic.jpg', }, { src: '/big-pic.jpg', }],
-    category: '心情随笔',
-    date: new Date()
+    category_name: '心情随笔',
+    created_at: (new Date()).toLocaleString(),
 }
 const article_3 = {
     title: '这是一个标题',
-    description: '这是一个表示'.repeat(100),
+    content: '这是一个表示'.repeat(100),
     pictures: [{ src: '/big-pic.jpg' }, { src: '/big-pic.jpg', }, { src: '/big-pic.jpg', }],
-    category: '心情随笔',
-    date: new Date()
+    category_name: '心情随笔',
+    created_at: (new Date()).toLocaleString(),
 }
 
 const pictures = [{

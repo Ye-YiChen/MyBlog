@@ -2,7 +2,7 @@
   <div>
     <Home>
       <ContentBox>
-        <ArticleDetail />
+        <ArticleDetail :info="info" />
       </ContentBox>
       <ContentBox title="相关阅读">
         <a-carousel :autoPlay="true" animation-name="card" show-arrow="never" indicator-position="outer" :style="{
@@ -17,10 +17,10 @@
           </a-carousel-item>
         </a-carousel>
       </ContentBox>
-      <ContentBox title="评论" >
+      <ContentBox title="评论">
         <a-comment align="right"
           avatar="https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp">
-          
+
           <template #actions>
             <a-button key="0" type="secondary"> Cancel </a-button>
             <a-button key="1" type="primary"> Comment </a-button>
@@ -85,6 +85,11 @@
 import ArticleDetail from '@/components/Article/ArticleDetail/AtricleDetail.vue'
 import ContentBox from '@/components/Main/ContentBox/ContentBox.vue';
 import Home from '@/layouts/Home.vue';
+import { getArticleByArticleIdWithCategory } from '@/api/Article';
+import { useRoute } from 'vue-router';
+const { params } = useRoute();
+const { data: info } = await getArticleByArticleIdWithCategory(parseInt(params.article_id as string));
+
 const images = [
   'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp',
   'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp',

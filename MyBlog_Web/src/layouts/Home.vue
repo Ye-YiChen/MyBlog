@@ -60,6 +60,7 @@ import { ref } from 'vue';
 import { Notification } from '@arco-design/web-vue';
 const { user, QQlink } = useUserStore();
 const donationVisible = ref(false);
+const isDonate = ref(false);
 function goHome() {
     goRoute('Home');
 }
@@ -69,22 +70,19 @@ function goLatestArticle() {
 }
 
 function handleThank(title: string = '感谢您的支持', content: string = '您的支持是我最大的动力') {
+    isDonate.value = true;
     Notification.success({
         title,
         content,
     });
 }
-const handleDonation = (() => {
-    let isDonate = false;
-    return () => {
-        if (!isDonate) {
-            donationVisible.value = true;
-            isDonate = true;
-        } else {
-            handleThank('再次感谢您的支持');
-        }
+function handleDonation() {
+    if (!isDonate.value) {
+        donationVisible.value = true;
+    } else {
+        handleThank('再次感谢您的支持');
     }
-})();
+}
 
 function goSetting() {
     goRoute('Set');

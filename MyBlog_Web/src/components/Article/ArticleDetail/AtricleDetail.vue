@@ -1,57 +1,74 @@
 <template>
   <div>
     <a-typography-title class="title">
-      这是一个大标题
+      {{ infoShow.title }}
     </a-typography-title>
     <a-space class="short-info">
       <template #split>
         <a-divider direction="vertical" />
       </template>
-      <a-link class="link">
+      <a-link class="link" @click="goUser">
         <icon-user class="" />
-        <span class="short-text">YeYiChen</span>
+        <span class="short-text">{{ infoShow.user.username }}</span>
       </a-link>
       <!-- <a-divider direction="vertical" /> -->
 
-      <a-link class="link">
+      <a-link class="link" @click="goCategory">
         <icon-menu />
-        <span class="short-text">随心笔记</span>
+        <span class="short-text">{{ infoShow.article_category.name }}</span>
       </a-link>
       <!-- <a-divider direction="vertical" /> -->
 
       <span class="link">
         <icon-calendar />
-        <span class="short-text">2022-01-01</span>
+        <span class="short-text">{{ new Date(infoShow.created_at).toLocaleString() }}</span>
       </span>
       <!-- <a-divider direction="vertical" /> -->
 
       <span class="link">
         <icon-eye />
-        <span class="short-text">2022-01-01</span>
+        <span class="short-text">{{ infoShow.views }}</span>
       </span>
       <!-- <a-divider direction="vertical" /> -->
 
       <span class="link">
         <icon-heart-fill />
-        <span class="short-text">10000</span>
+        <span class="short-text">{{ infoShow.likes }}</span>
       </span>
     </a-space>
     <a-divider />
     <div class="main">
-      <MdEditor v-model="article" previewOnly />
+      <MdEditor v-model="infoShow.content" previewOnly />
       <a-button type="dashed" status="warning" class="donate-btn" size="large">
         <template #icon>
           <icon-gift size="large" />
         </template>
-        <span class="donate-text big-text">赞赏</span>
+        <span class="donate-text big-text" @click="handleDonation">请喝杯咖啡</span>
       </a-button>
+      <a-modal simple title="请喝杯咖啡" v-model:visible="donationVisible" :width="400" body-class="donation-box"
+        @ok="handleThank" ok-text="已经打赏" cancel-text="下次一定" draggable>
+        <div class="donation-box">
+          <a-typography-paragraph>
+            如果您觉得我的文章对您有帮助，可以请我喝杯咖啡，谢谢！
+          </a-typography-paragraph>
+          <div class="donation-img" :style="{
+            width: '100%',
+            height: 'auto',
+          }">
+            <img :src="info.user.donation" :style="{
+              width: '100%',
+              height: '100%',
+            }" />
+          </div>
 
+        </div>
+      </a-modal>
     </div>
     <div class="bottom-info">
       <a-space>
         <a-link :hoverable="false" class="link">
           <icon-heart-fill size="large" />
-          <span class="short-text big-text">10000</span>
+          <span class="short-text big-text">{{ info.likes }}</span>
         </a-link>
       </a-space>
       <a-space size="medium">
@@ -83,20 +100,40 @@
 import { ref } from 'vue';
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
+import { defineProps, reactive } from 'vue';
+import { Notification } from '@arco-design/web-vue';
+import { goRoute } from '@/utils/goRoute';
+const { info } = defineProps<{ info: any }>();
+const infoShow = reactive({
+  ...info,
+  created_at: new Date(info.created_at).toLocaleString(),
+});
 
-const article = ref(`
-  # hello
-  
-  染指流沙，回绕不尽的世界繁华；
-  
-  青灯孤伴，镌刻不完的午夜落花；
-  
-  锦帛残卷，撰写不到的城南旧事；
-  
-  蓦然回首，消逝不见的绝美年华。
-  
-  `)
+const donationVisible = ref(false);
+const isDonate = ref(false);
 
+function goCategory() {
+  goRoute('Category', { category_id: infoShow.article_category.article_category_id });
+}
+
+function goUser() {
+  goRoute('Home', { user_id: info.user.user_id });
+}
+
+function handleThank(title: string = '感谢您的支持', content: string = '您的支持是我最大的动力') {
+  isDonate.value = true;
+  Notification.success({
+    title,
+    content,
+  });
+}
+function handleDonation() {
+  if (!isDonate.value) {
+    donationVisible.value = true;
+  } else {
+    handleThank('再次感谢您的支持');
+  }
+}
 </script>
   
 <style scoped lang='less'>
@@ -127,7 +164,7 @@ const article = ref(`
   align-items: center;
   margin-bottom: 20px;
 
-  .donate-btn{
+  .donate-btn {
     margin-top: 10vh;
   }
 

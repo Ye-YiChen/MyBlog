@@ -23,7 +23,7 @@ function postArticle(data: Article) {
 
 function getArticlesByUserIdWithCategory(user_id: number, page: number, pageSize: number) {
     return request({
-        url: `/set/${user_id}/article/list`,
+        url: `/detail/user/${user_id}/article/list`,
         method: "get",
         params: {
             page,
@@ -32,6 +32,14 @@ function getArticlesByUserIdWithCategory(user_id: number, page: number, pageSize
     });
 }
 
+function getArticleByArticleIdWithCategory(article_id: number) {
+    return request({
+        url: `detail/article/${article_id}`,
+        method: "get"
+    });
+}
+
+
 function deleteArticleByArticleId(article_id: number) {
     return request({
         url: `article/${article_id}`,
@@ -39,4 +47,4 @@ function deleteArticleByArticleId(article_id: number) {
     });
 }
 
-export { getArticlesByUserId, postArticle ,getArticlesByUserIdWithCategory,deleteArticleByArticleId};
+export { getArticlesByUserId, postArticle, getArticlesByUserIdWithCategory, deleteArticleByArticleId, getArticleByArticleIdWithCategory };

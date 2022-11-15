@@ -4,7 +4,7 @@ import loginRouter from 'src/routes/login';
 import userRouter from 'src/routes/user';
 import articleRouter from 'src/routes/article';
 import articleCategoryRouter from 'src/routes/articleCategory';
-import setLogin from 'src/routes/set';
+import detailLogin from 'src/routes/detail';
 import { authToken } from 'src/middleware/token';
 const app = express();
 app.all("*", function (req, res, next) {
@@ -38,7 +38,7 @@ app.use('/article', authToken, articleRouter);
 
 app.use('/articleCategory', authToken, articleCategoryRouter);
 
-app.use('/set', authToken, setLogin);
+app.use('/detail', authToken, detailLogin);
 
 // 开启服务
 app.listen(3000, () => {

@@ -1,19 +1,20 @@
 <template>
   <div>
-    <div class="1-pic" v-if="article.pictures.length===1">
+    <div class="1-pic" v-if="article.pictures.length === 1">
       <div class="main-box">
         <a-typography class="text-box-1">
           <a-typography-title :heading="4" class="title-1" ellipsis>
-            {{article.title}}
+            {{ article.title }}
           </a-typography-title>
           <a-typography-paragraph :ellipsis="{
             rows: 4,
-            suffix: '--Arco Design',
+            suffix: user.username,
             expandable: false,
           }">
-            {{article.description}}
+            {{ article.content }}
+            <!-- <MdEditor :content="article.content" previewOnly /> -->
           </a-typography-paragraph>
-          <footer class="bottom-text small-text">{{article.category}} {{article.date.toLocaleDateString()}}</footer>
+          <footer class="bottom-text small-text">{{ article.category_name }} {{ article.created_at }}</footer>
         </a-typography>
         <div class="img-box">
           <a-image-preview-group infinite>
@@ -21,7 +22,8 @@
               justifyContent: 'space-between'
             }">
               <!-- <img v-for="(picture,index) in article.pictures" :key="index" :src="picture.src" class="img-item" /> -->
-              <a-image v-for="(picture,index) in  article.pictures" :key="index" :src="picture.src" height="140" class="round-box" />
+              <a-image v-for="(picture, index) in  article.pictures" :key="index" :src="picture.src" height="140"
+                class="round-box" />
             </a-space>
           </a-image-preview-group>
 
@@ -33,14 +35,14 @@
     <div class="3-pic" v-else>
       <a-typography class="text-box">
         <a-typography-title :heading="4">
-          {{article.title}}
+          {{ article.title }}
         </a-typography-title>
         <a-typography-paragraph :ellipsis="{
           rows: 2,
-          suffix: '--Arco Design',
+          suffix: ` -- ${user.username}`,
           expandable: false,
         }">
-          {{article.description}}
+          {{ article.content }}
         </a-typography-paragraph>
       </a-typography>
       <div class="img-box">
@@ -49,12 +51,13 @@
             justifyContent: 'space-around'
           }">
             <!-- <img v-for="(picture,index) in article.pictures" :key="index" :src="picture.src" class="img-item" /> -->
-            <img v-for="(picture,index) in  article.pictures" :key="index" :src="picture.src" class="img-item round-box" />
+            <img v-for="(picture, index) in  article.pictures" :key="index" :src="picture.src"
+              class="img-item round-box" />
           </a-space>
         </a-image-preview-group>
 
       </div>
-      <footer class="bottom-text small-text">{{article.category}} {{article.date.toLocaleDateString()}}</footer>
+      <footer class="bottom-text small-text">{{ article.category_name }} {{ article.created_at }}</footer>
     </div>
     <a-divider v-if="!!divider" />
 
@@ -62,15 +65,18 @@
 </template>
 
 <script setup lang='ts'>
+// import MdEditor from 'md-editor-v3';
+import { useUserStore } from '@/stores/user';
+const { user } = useUserStore();
 /* 当图片仅有一个时，图片显示在右边且文字显示4行 
 /* 否则图片最多展示三个，显示标题、文字、图片
 */
 interface ArticleShortCuts {
   title: string, // 标题
-  description: string,
+  content: string,
   pictures: { src: string, }[]
-  category: string,
-  date: Date
+  category_name: string,
+  created_at: string
 }
 const { article, divider = true } = defineProps<{ article: ArticleShortCuts, divider?: boolean }>()
 </script>

@@ -50,7 +50,7 @@ function queryArticlesByCategoryId(article_category_id: number, page: number, pa
 function queryArticleInfo(article_id: number) {
     return new Promise<Article[]>((resolve, reject) => {
         article_id = parseInt(db.escape(article_id));
-        const sql = `select title, content, pictures, user_id, article_category_id, created_at from article where article_id=${article_id} and deleted_at is null  `;
+        const sql = `select title, content, pictures, user_id, article_category_id, views, likes, tags, created_at from article where article_id=${article_id} and deleted_at is null  `;
         db.query(sql, (err: Error, result: Article[]) => {
             if (err) {
                 reject(err);
