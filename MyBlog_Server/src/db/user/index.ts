@@ -75,18 +75,6 @@ function countArticleInUser(user_id: number) {
     });
 }
 
-function countViewsInUser(user_id: number) {
-    return new Promise<any>((resolve, reject) => {
-        user_id = parseInt(db.escape(user_id));
-        const sql = `SELECT count(*) AS count FROM article WHERE user_id=${user_id} AND deleted_at is NULL `;
-        db.query(sql, (err: Error, result: any) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(result[0]);
-        });
-    });
-}
 
-export { queryUserLogin, queryUserInfo, updateUserInfo, countArticleInUser, countViewsInUser };
+
+export { queryUserLogin, queryUserInfo, updateUserInfo, countArticleInUser,  };

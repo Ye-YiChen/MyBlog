@@ -11,13 +11,14 @@
 import Setting from '@/layouts/Setting.vue';
 import { reactive, provide } from 'vue';
 import { useUserStore } from '@/stores/user';
-import { getArticleCountInUser, getLikesAndViewsInUser } from '@/api/User';
+import { getArticleCountInUser, getViewsCountByUserId, getLikesCountByUserId } from '@/api/User';
 const { user } = useUserStore();
-const { data:ArticleData } = await getArticleCountInUser(user.user_id!);
-const { data:likes_views_data } = await getLikesAndViewsInUser(user.user_id!);
+const { data: ArticleData } = await getArticleCountInUser(user.user_id!);
+const { data: views_data } = await getViewsCountByUserId(user.user_id!);
+const { data: like_data } = await getLikesCountByUserId(user.user_id!);
 const infoCounts = reactive({
-  views: likes_views_data.views,
-  likes: likes_views_data.likes,
+  views: views_data.count,
+  likes: like_data.count,
   articles: ArticleData.count,
 });
 provide('infoCounts', infoCounts);

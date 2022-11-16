@@ -21,11 +21,24 @@ function getArticleCountInUser(user_id: number) {
     });
 }
 
-function getLikesAndViewsInUser(user_id: number) {
+
+function getLikesCountByUserId(user_id: number) {
     return request({
-        url: `/user/${user_id}/likes_views`,
+        url: `/likes/user/${user_id}/count`,
         method: 'get',
     });
 }
 
-export { getUserInfoByToken, putUserInfo,getArticleCountInUser,getLikesAndViewsInUser };
+function getViewsCountByUserId(user_id: number) {
+    return request({
+        url: `/views/user/${user_id}/count`,
+        method: 'get',
+    });
+}
+export {
+    getUserInfoByToken,
+    putUserInfo,
+    getArticleCountInUser,
+    getLikesCountByUserId,
+    getViewsCountByUserId
+};

@@ -80,13 +80,13 @@ function removeLike(user_id: number, article_id: number) {
 function countLikesInUser(user_id: number) {
     return new Promise<any>((resolve, reject) => {
         user_id = parseInt(db.escape(user_id));
-        const sql = `SELECT COUNT(*) AS count FROM likes WHERE user_id=${user_id} AND deleted_at IS NULL`;
+        const sql = `SELECT COUNT(1) AS count FROM likes WHERE user_id=${user_id} AND deleted_at IS NULL`;
         db.query(sql, (err: Error, result: any) => {
             if (err) {
                 reject(err);
                 return;
             }
-            resolve(result);
+            resolve(result[0]);
         }
         );
     });
