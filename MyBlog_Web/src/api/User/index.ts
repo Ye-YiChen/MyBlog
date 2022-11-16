@@ -21,4 +21,11 @@ function getArticleCountInUser(user_id: number) {
     });
 }
 
-export { getUserInfoByToken, putUserInfo,getArticleCountInUser };
+function getLikesAndViewsInUser(user_id: number) {
+    return request({
+        url: `/user/${user_id}/likes_views`,
+        method: 'get',
+    });
+}
+
+export { getUserInfoByToken, putUserInfo,getArticleCountInUser,getLikesAndViewsInUser };

@@ -34,7 +34,7 @@ function getArticlesByUserIdWithCategory(user_id: number, page: number, pageSize
 
 function getArticleByArticleIdWithCategory(article_id: number) {
     return request({
-        url: `detail/article/${article_id}`,
+        url: `/detail/article/${article_id}`,
         method: "get"
     });
 }
@@ -42,9 +42,56 @@ function getArticleByArticleIdWithCategory(article_id: number) {
 
 function deleteArticleByArticleId(article_id: number) {
     return request({
-        url: `article/${article_id}`,
+        url: `/article/${article_id}`,
         method: "delete"
     });
 }
 
-export { getArticlesByUserId, postArticle, getArticlesByUserIdWithCategory, deleteArticleByArticleId, getArticleByArticleIdWithCategory };
+function postLikesByArticleId(user_id: number, article_id: number) {
+    return request({
+        url: `/likes/user/${user_id}/article/${article_id}`,
+        method: "post"
+    });
+}
+
+function deleteLikesByArticleId(user_id: number, article_id: number) {
+    return request({
+        url: `/likes/user/${user_id}/article/${article_id}`,
+        method: "delete"
+    });
+}
+
+function getLikesByArticleId(user_id: number, article_id: number) {
+    return request({
+        url: `/likes/user/${user_id}/article/${article_id}`,
+        method: "get"
+    });
+}
+
+function postViewsByArticleId(article_id: number) {
+    return request({
+        url: `/views/article/${article_id}`,
+        method: "post"
+    });
+}
+
+function getLikesCountByArticleId(article_id: number) {
+    return request({
+        url: `/likes/article/${article_id}/count`,
+        method: "get"
+    });
+}
+
+
+export {
+    getArticlesByUserId,
+    postArticle,
+    getArticlesByUserIdWithCategory,
+    deleteArticleByArticleId,
+    getArticleByArticleIdWithCategory,
+    postLikesByArticleId,
+    deleteLikesByArticleId,
+    getLikesByArticleId,
+    postViewsByArticleId,
+    getLikesCountByArticleId,
+};

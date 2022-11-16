@@ -66,9 +66,9 @@
     </div>
     <div class="bottom-info">
       <a-space>
-        <a-link :hoverable="false" class="link">
-          <icon-heart-fill size="large" />
-          <span class="short-text big-text">{{ info.likes }}</span>
+        <a-link :hoverable="false" class="link red" @click="handleLike">
+          <icon-heart-fill size="large" :class="isLiked ? 'red' : ''" />
+          <span class="short-text big-text" :class="isLiked ? 'red' : ''">{{ infoShow.likes }}</span>
         </a-link>
       </a-space>
       <a-space size="medium">
@@ -100,18 +100,18 @@
 import { ref } from 'vue';
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import { defineProps, reactive } from 'vue';
+import { defineProps, computed, reactive, defineEmits } from 'vue';
 import { Notification } from '@arco-design/web-vue';
 import { goRoute } from '@/utils/goRoute';
-const { info } = defineProps<{ info: any }>();
+const { info, isLike } = defineProps<{ info: any, isLike: boolean }>();
+const isLiked = ref(isLike);
+const emit = defineEmits(['like']);
 const infoShow = reactive({
   ...info,
   created_at: new Date(info.created_at).toLocaleString(),
 });
 
-const donationVisible = ref(false);
-const isDonate = ref(false);
-
+// 标题栏跳转
 function goCategory() {
   goRoute('Category', { category_id: infoShow.article_category.article_category_id });
 }
@@ -120,6 +120,9 @@ function goUser() {
   goRoute('Home', { user_id: info.user.user_id });
 }
 
+// 打赏
+const donationVisible = ref(false);
+const isDonate = ref(false);
 function handleThank(title: string = '感谢您的支持', content: string = '您的支持是我最大的动力') {
   isDonate.value = true;
   Notification.success({
@@ -127,6 +130,7 @@ function handleThank(title: string = '感谢您的支持', content: string = '�
     content,
   });
 }
+
 function handleDonation() {
   if (!isDonate.value) {
     donationVisible.value = true;
@@ -134,6 +138,13 @@ function handleDonation() {
     handleThank('再次感谢您的支持');
   }
 }
+
+function handleLike() {
+  emit('like');
+  isLiked.value = !isLiked.value;
+  infoShow.likes = isLike? infoShow.likes - 1 : infoShow.likes + 1;
+}
+
 </script>
   
 <style scoped lang='less'>

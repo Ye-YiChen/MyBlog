@@ -70,7 +70,7 @@ function removeArticleCategory(article_category_id: number) {
 
 function countArticleInArticleCategory(article_category_id: number) {
     return new Promise<number>((resolve, reject) => {
-        const sql = `select count(*) as count from article where article_category_id=${article_category_id} and deleted_at is null`;
+        const sql = `select count(1) as count from article where article_category_id=${article_category_id} and deleted_at is null`;
         db.query(sql, (err: Error, result: any) => {
             if (err) {
                 reject(err);

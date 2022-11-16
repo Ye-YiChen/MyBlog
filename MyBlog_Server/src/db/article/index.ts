@@ -98,4 +98,47 @@ function removeArticle(article_id: number) {
     });
 }
 
-export { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle, removeArticle };;
+/**
+ * 
+ * @param article_id 文章id
+ * @deprecated 现在添加一篇文章的点赞通过添加一条点赞记录来实现（防止重复点赞）
+ */
+function addLikesInArticle(article_id: number) {
+    return new Promise((resolve, reject) => {
+        const sql = `update article set likes=likes+1 where article_id=${article_id}`;
+        db.query(sql, (err: Error, result: any) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+
+function subLikesInArticle(article_id: number) {
+    return new Promise((resolve, reject) => {
+        const sql = `update article set likes=likes-1 where article_id=${article_id}`;
+        db.query(sql, (err: Error, result: any) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+
+function addViewsInArticle(article_id: number) {
+    return new Promise((resolve, reject) => {
+        const sql = `update article set views=views+1 where article_id=${article_id}`;
+        db.query(sql, (err: Error, result: any) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+export { queryArticlesByUserId, queryArticlesByCategoryId, queryArticleInfo, addArticle, removeArticle, addLikesInArticle, subLikesInArticle, addViewsInArticle };

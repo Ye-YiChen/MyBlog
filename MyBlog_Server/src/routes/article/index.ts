@@ -1,5 +1,5 @@
 import express from 'express';
-import { getArticleInfo,deleteArticle } from 'src/controller/article';
+import { getArticleInfo,deleteArticle, postView} from 'src/controller/article';
 
 const articleRouter = express.Router();
 

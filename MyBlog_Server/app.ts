@@ -5,6 +5,8 @@ import userRouter from 'src/routes/user';
 import articleRouter from 'src/routes/article';
 import articleCategoryRouter from 'src/routes/articleCategory';
 import detailLogin from 'src/routes/detail';
+import likesRouter from 'src/routes/likes';
+import viewRouter from 'src/routes/views';
 import { authToken } from 'src/middleware/token';
 const app = express();
 app.all("*", function (req, res, next) {
@@ -34,12 +36,15 @@ app.use('/login', loginRouter);
 
 app.use('/user', authToken, userRouter);
 
-app.use('/article', authToken, articleRouter);
+app.use('/article', articleRouter);
 
 app.use('/articleCategory', authToken, articleCategoryRouter);
 
 app.use('/detail', authToken, detailLogin);
 
+app.use('/likes', authToken, likesRouter);
+
+app.use('/views', viewRouter);
 // 开启服务
 app.listen(3000, () => {
   console.log('listening on http://localhost:3000');

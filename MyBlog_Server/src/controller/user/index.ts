@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { JwtPayload } from "jsonwebtoken";
-import { countArticleInUser, queryUserInfo, updateUserInfo } from "src/db/user";
+import { countLikesInUser } from "src/db/likes";
+import { countArticleInUser, countViewsInUser, queryUserInfo, updateUserInfo } from "src/db/user";
 import { SuccessResult, ErrorResult } from "src/model/Result";
 import { User } from "src/model/User";
 import { verifyToken } from "src/token";
@@ -61,4 +62,26 @@ async function getTotalInUser(req: Request, res: Response) {
     }
 }
 
-export { getUserInfo, putUserInfo, getUserByToken,getTotalInUser }
+async function getViewsInUser(req: Request, res: Response) {
+    const { user_id } = req.params;
+    try {
+        const likes_views_count = await countViewsInUser(parseInt(user_id));
+        res.json(SuccessResult({ views: likes_views_count.views }));
+    } catch (error) {
+        res.json(ErrorResult('user_id error'));
+        return;
+    }
+}
+
+async function getLikesInUser(req: Request, res: Response) {
+    const { user_id } = req.params;
+    try {
+        const likes_views_count = await countLikesInUser(parseInt(user_id));
+        res.json(SuccessResult({ likes: likes_views_count.likes }));
+    } catch (error) {
+        res.json(ErrorResult('user_id error'));
+        return;
+    }
+}
+
+export { getUserInfo, putUserInfo, getUserByToken, getTotalInUser, getViewsInUser,getLikesInUser }

@@ -2,7 +2,7 @@
   <div>
     <Home>
       <ContentBox>
-        <ArticleDetail :info="info" />
+        <ArticleDetail :info="info" @like="onClickLike" :isLike="isLike" />
       </ContentBox>
       <ContentBox title="相关阅读">
         <a-carousel :autoPlay="true" animation-name="card" show-arrow="never" indicator-position="outer" :style="{
@@ -85,10 +85,35 @@
 import ArticleDetail from '@/components/Article/ArticleDetail/AtricleDetail.vue'
 import ContentBox from '@/components/Main/ContentBox/ContentBox.vue';
 import Home from '@/layouts/Home.vue';
-import { getArticleByArticleIdWithCategory } from '@/api/Article';
+import { getArticleByArticleIdWithCategory, postLikesByArticleId, getLikesByArticleId, deleteLikesByArticleId, postViewsByArticleId, getLikesCountByArticleId } from '@/api/Article';
 import { useRoute } from 'vue-router';
+import { useUserStore } from '@/stores/user';
+const { user } = useUserStore();
 const { params } = useRoute();
+// 获取文章详情
 const { data: info } = await getArticleByArticleIdWithCategory(parseInt(params.article_id as string));
+const {data:likeCount} = await getLikesCountByArticleId(parseInt(params.article_id as string));
+// 注入修改点赞数量（不太好）
+info.likes = likeCount[0].count;
+// 获取文章用户是否点赞
+const { data } = await getLikesByArticleId(user.user_id!, parseInt(params.article_id as string));
+// 保存是否点赞
+const isLike = !!data;
+async function onClickLike() {
+  if (isLike) {
+    const a = await deleteLikesByArticleId(user.user_id!, parseInt(params.article_id as string),);
+    console.log(a)
+  } else {
+    const b = await postLikesByArticleId(user.user_id!, parseInt(params.article_id as string),);
+    console.log(b)
+  }
+}
+
+
+// 在页面停留5s后，增加文章浏览量
+setTimeout(() => {
+  postViewsByArticleId(parseInt(params.article_id as string));
+}, 5000);
 
 const images = [
   'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp',
